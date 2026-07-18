@@ -3,263 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ick - Track Their Recent Follows & Followers</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
+    <title>The Ick - Track Instagram Follows & Followers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        theIckPink: '#FCD3DE',
+                        theIckHotPink: '#F25C84',
+                        theIckDark: '#0D0D0D',
+                    }
+                }
+            }
         }
-
+    </script>
+    <style>
         body {
-            background: linear-gradient(180deg, #FFAEC9 0%, #F593B3 50%, #E66B95 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #white;
-            padding: 20px;
+            background-color: #FCD3DE;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
-
-        /* الهيدر العلوي */
-        header {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            margin-bottom: 30px;
+        /* أنيميشن احترافي لسلسلة الكلمات داخل الـ Input */
+        .placeholder-fade {
+            transition: all 0.2s ease-in-out;
         }
-
-        .logo {
-            font-weight: 800;
-            font-size: 24px;
-            color: #333;
+        /* حركة التموج الخفيفة للشارة */
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
         }
-
-        .login-btn {
-            background-color: #000;
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
+        .animate-float {
+            animation: floatEffect 3s ease-in-out infinite;
         }
-
-        /* حاوية المحتوى الرئيسي */
-        .main-container {
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* شارة التيك توك */
-        .tiktok-badge {
-            background-color: #000;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        /* العناوين الأساسية */
-        h1 {
-            color: #fff;
-            font-size: 36px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        /* الإيموجي المفكر والمتحرك */
-        .thinking-emoji {
-            font-size: 45px;
-            margin-bottom: 25px;
-            animation: bounce 2s infinite ease-in-out;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* صندوق البحث الذكي */
-        .search-box {
-            background-color: #fff;
-            width: 100%;
-            padding: 8px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        }
-
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            padding-left: 15px;
-            flex-grow: 1;
-            font-size: 16px;
-            color: #aaa;
-        }
-
-        .instagram-icon {
-            width: 22px;
-            height: 22px;
-            margin-right: 8px;
-        }
-
-        /* الأنيميشن الخاص بالكتابة ومسح النص */
-        .dynamic-placeholder {
-            color: #777;
-            font-weight: 500;
-            border-right: 2px solid #E66B95;
-            white-space: nowrap;
+        /* إخفاء الـ Accordion بسلاسة */
+        .faq-answer {
+            max-height: 0;
             overflow: hidden;
-            animation: blink 0.75s step-end infinite;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
         }
-
-        @keyframes blink {
-            from, to { border-color: transparent }
-            50% { border-color: #E66B95; }
-        }
-
-        .search-btn {
-            background: linear-gradient(90deg, #FF6597, #F35588);
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .search-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* عبارة التأكيد السفلية */
-        .verified-text {
-            color: #fff;
-            font-size: 13px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .checkmark {
-            background-color: #4CD964;
-            color: white;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
+        .faq-answer.open {
+            max-height: 200px;
+            padding-top: 12px;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center antialiased">
 
-    <header>
-        <div class="logo">The Ick<span style="color: #E66B95">.io</span></div>
-        <a href="#" class="login-btn">Login</a>
+    <header class="w-full max-w-5xl flex justify-between items-center px-6 py-5 z-50">
+        <div class="flex items-center space-x-2 cursor-pointer">
+            <div class="w-9 h-9 bg-theIckDark rounded-xl flex items-center justify-center font-black text-xl text-white">🤢</div>
+            <span class="text-xl font-black tracking-tight text-theIckDark">theick<span class="text-white">.io</span></span>
+        </div>
+        <div class="flex items-center space-x-6">
+            <a href="#" class="text-sm font-bold text-theIckDark/80 hover:text-theIckDark transition">Pricing</a>
+            <button class="bg-theIckDark text-white font-bold px-5 py-2.5 rounded-xl text-xs tracking-wide transition hover:bg-neutral-800 shadow-sm">
+                Log In
+            </button>
+        </div>
     </header>
 
-    <div class="main-container">
-        <div class="tiktok-badge">
-            <span style="color: #00f2fe;">🎵</span> #1 Trending App on TikTok
+    <main class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-6 pb-12">
+        
+        <div class="animate-float bg-theIckDark text-white text-[10px] font-extrabold tracking-widest uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-md mb-6">
+            <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+            </span>
+            <span>🔥 #1 Trending App on TikTok</span>
         </div>
 
-        <h1>Track their Recent<br>Follows & Followers</h1>
+        <h1 class="text-4xl md:text-5xl font-black text-theIckDark tracking-tight leading-[1.15] mb-6">
+            Track their Recent<br>Follows & Followers
+        </h1>
 
-        <div class="thinking-emoji">🤔</div>
-
-        <div class="search-box">
-            <div class="input-wrapper">
-                <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-                <span>@&nbsp;</span>
-                <span id="typing-text" class="dynamic-placeholder">your partner</span>
+        <div class="w-full bg-white/30 p-2 rounded-2xl border border-white/50 shadow-xl backdrop-blur-md">
+            <div class="bg-white rounded-xl p-2 flex items-center shadow-inner relative justify-between border border-neutral-100 focus-within:ring-2 focus-within:ring-theIckHotPink/40 transition-all duration-300">
+                <div class="flex items-center flex-1 pl-3">
+                    <span class="text-neutral-400 font-bold text-lg mr-1">@</span>
+                    <div class="relative w-full h-6 overflow-hidden">
+                        <input type="text" id="usernameInput" 
+                               class="absolute inset-0 w-full bg-transparent outline-none font-semibold text-neutral-800 text-base z-10"
+                               autocomplete="off">
+                        <span id="animatedPlaceholder" class="placeholder-fade absolute inset-0 text-neutral-400 font-semibold text-base flex items-center pointer-events-none">your partner</span>
+                    </div>
+                </div>
+                <button onclick="triggerSearch()" class="bg-theIckHotPink hover:bg-theIckDark text-white font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-md transition-all duration-300">
+                    Search Now
+                </button>
             </div>
-            <button class="search-btn">Search Now</button>
         </div>
 
-        <div class="verified-text">
-            <span class="checkmark">✓</span> Try it now. No Instagram login required.
+        <div class="flex items-center space-x-1.5 mt-4 text-[11px] font-bold text-neutral-800/80">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Try it now. No instagram login required.</span>
         </div>
-    </div>
+
+        <div class="mt-8 flex flex-col items-center">
+            <div class="flex -space-x-2.5 overflow-hidden">
+                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80" alt="User Avatar">
+                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="User Avatar">
+                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="User Avatar">
+                <div class="h-8 w-8 rounded-full bg-theIckDark text-white flex items-center justify-center text-[9px] font-black ring-2 ring-white">+1M</div>
+            </div>
+            <p class="text-xs font-black text-theIckDark mt-2">1M+ accounts analyzed</p>
+        </div>
+
+        <div class="mt-4 bg-white/40 border border-white/50 rounded-full px-4 py-1.5 flex items-center space-x-2 text-[11px] font-bold text-theIckDark shadow-sm">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span><span id="liveCounter" class="font-black text-emerald-700">342</span> users are currently searching anonymously...</span>
+        </div>
+
+    </main>
+
+    <section class="w-full bg-white/10 py-8 border-y border-white/20 backdrop-blur-sm">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div>
+                <h3 class="text-2xl font-black text-theIckDark tracking-tight">1,249,042</h3>
+                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">Profiles Tracked</p>
+            </div>
+            <div class="border-l border-white/20">
+                <h3 class="text-2xl font-black text-theIckDark tracking-tight">110,480+</h3>
+                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">5-Star Reviews</p>
+            </div>
+            <div class="border-l border-white/20">
+                <h3 class="text-2xl font-black text-theIckDark tracking-tight">4.9 / 5.0</h3>
+                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">Satisfaction Rate</p>
+            </div>
+            <div class="border-l border-white/20">
+                <h3 class="text-2xl font-black text-theIckDark tracking-tight">Every 1h</h3>
+                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">System Updates</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="w-full max-w-4xl px-6 py-16">
+        <div class="text-center mb-12">
+            <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— FEEDBACK</span>
+            <h2 class="text-2xl md:text-3xl font-black text-theIckDark mt-1.5 tracking-tight">Loved by over 100,000+ users</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between transition hover:scale-[1.02] duration-300">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@j</div>
+                            <div>
+                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@jessica_m <span class="ml-1.5 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
+                                <p class="text-[9px] text-neutral-400">1 day ago</p>
+                            </div>
+                        </div>
+                        <div class="flex text-amber-400 space-x-0.5">
+                            <span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Honestly, I was skeptical at first but this tool is terrifyingly accurate. Found exactly who my boyfriend followed last night within an hour."</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between transition hover:scale-[1.02] duration-300">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@b</div>
+                            <div>
+                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@bradley_k <span class="ml-1.5 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
+                                <p class="text-[9px] text-neutral-400">3 days ago</p>
+                            </div>
+                        </div>
+                        <div class="flex text-amber-400 space-x-0.5">
+                            <span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"The anonymity is 100% real. I tested it with my own second account first and no notification or trace was left behind. Absolute peace of mind."</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between transition hover:scale-[1.02] duration-300">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@a</div>
+                            <div>
+                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@amanda.clark <span class="ml-1.5 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
+                                <p class="text-[9px] text-neutral-400">Just now</p>
+                            </div>
+                        </div>
+                        <div class="flex text-amber-400 space-x-0.5">
+                            <span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"The Ick saved me from wasting more months on a situationship that was lying to me. The recent follows tab doesn't lie!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="w-full max-w-xl px-4 py-8 mb-16 text-left">
+        <h2 class="text-xl font-black text-theIckDark mb-6 text-center">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+            
+            <div class="bg-white rounded-xl p-4 shadow-sm cursor-pointer" onclick="toggleAccordion(this)">
+                <div class="flex justify-between items-center font-bold text-xs text-neutral-800">
+                    <span>Will they know I checked their profile?</span>
+                    <span class="faq-icon text-theIckHotPink font-black text-base">+</span>
+                </div>
+                <div class="faq-answer text-[11px] text-neutral-500 leading-relaxed">
+                    No. The request is entirely handled by our cloud architecture servers. The target user receives zero alerts, hints, or logs.
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 shadow-sm cursor-pointer" onclick="toggleAccordion(this)">
+                <div class="flex justify-between items-center font-bold text-xs text-neutral-800">
+                    <span>Do I need to sign in with my password?</span>
+                    <span class="faq-icon text-theIckHotPink font-black text-base">+</span>
+                </div>
+                <div class="faq-answer text-[11px] text-neutral-500 leading-relaxed">
+                    Never. We will never ask for your Instagram account info, credentials, or access tokens.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="w-full bg-theIckDark text-white text-center py-12 px-6 rounded-t-[2.5rem] mt-auto">
+        <span class="text-xl font-black tracking-tight text-white">theick<span class="text-theIckPink">.io</span></span>
+        <p class="text-[10px] text-neutral-500 mt-4 max-w-xs mx-auto leading-relaxed">© 2026 The Ick. All legal rights reserved. This platform works as an independent analytical dashboard and is not affiliated with Instagram or Meta Platforms Inc.</p>
+    </footer>
 
     <script>
-        const words = ["your partner", "your best friend", "that one person", "your situationship", "your crush", "your ex"];
-        let wordIndex = 0;
-        let charIndex = words[wordIndex].length;
-        let isDeleting = true;
-        const typingSpeed = 100;
-        const eraseSpeed = 50;
-        const delayBetweenWords = 2000; // مدة بقاء الكلمة ظاهرة
+        // دالة تدوير النصوص التلقائية داخل خانة الإدخال بدقة
+        const rotationWords = ["your partner", "your best friend", "your situationship", "your crush", "your ex"];
+        let currentWordIdx = 0;
+        const targetPlaceholder = document.getElementById('animatedPlaceholder');
+        const searchInput = document.getElementById('usernameInput');
 
-        const typingElement = document.getElementById("typing-text");
+        searchInput.addEventListener('input', (e) => {
+            targetPlaceholder.style.opacity = e.target.value.length > 0 ? '0' : '1';
+        });
 
-        function typeEffect() {
-            const currentWord = words[wordIndex];
+        setInterval(() => {
+            if (searchInput.value.length === 0) {
+                targetPlaceholder.style.opacity = '0';
+                targetPlaceholder.style.transform = 'translateY(-4px)';
+                setTimeout(() => {
+                    currentWordIdx = (currentWordIdx + 1) % rotationWords.length;
+                    targetPlaceholder.innerText = rotationWords[currentWordIdx];
+                    targetPlaceholder.style.opacity = '1';
+                    targetPlaceholder.style.transform = 'translateY(0)';
+                }, 200);
+            }
+        }, 2500);
 
-            if (isDeleting) {
-                // مسح الحروف
-                typingElement.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
+        // التحكم في عداد المستخدمين المباشر لجعل الحركة واقعية
+        const liveCounterEl = document.getElementById('liveCounter');
+        setInterval(() => {
+            let num = parseInt(liveCounterEl.innerText);
+            let change = Math.floor(Math.random() * 5) - 2; // قيم عشوائية بين -2 و +2
+            liveCounterEl.innerText = Math.max(200, num + change);
+        }, 3000);
+
+        // دالة التحكم في فتح وغلق الأسئلة الشائعة بسلاسة
+        function toggleAccordion(element) {
+            const answer = element.querySelector('.faq-answer');
+            const icon = element.querySelector('.faq-icon');
+            
+            if(answer.classList.contains('open')) {
+                answer.classList.remove('open');
+                icon.innerText = '+';
             } else {
-                // كتابة الحروف
-                typingElement.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
+                // غلق أي سؤال مفتوح أولاً
+                document.querySelectorAll('.faq-answer').forEach(el => el.classList.remove('open'));
+                document.querySelectorAll('.faq-icon').forEach(el => el.innerText = '+');
+                
+                answer.classList.add('open');
+                icon.innerText = '−';
             }
-
-            // تحديد السرعة وتغيير الحالة
-            let currentSpeed = isDeleting ? eraseSpeed : typingSpeed;
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                // إذا اكتملت الكتابة، انتظر قليلاً ثم ابدأ المسح
-                currentSpeed = delayBetweenWords;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                // إذا تم مسح الكلمة بالكامل، انتقل للكلمة التالية
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                currentSpeed = 300; // استراحة خفيفة قبل بدء الكلمة الجديدة
-            }
-
-            setTimeout(typeEffect, currentSpeed);
         }
 
-        // تشغيل الأنيميشن تلقائياً عند تحميل الصفحة
-        document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(typeEffect, delayBetweenWords);
-        });
+        // دالة الضغط على زر البحث وبداية التحليل
+        function triggerSearch() {
+            const usernameValue = searchInput.value.trim();
+            if(!usernameValue) {
+                searchInput.focus();
+                return;
+            }
+            alert("Analysis starting for @" + usernameValue + "... Link your gateway/locker here!");
+        }
     </script>
 </body>
 </html>
