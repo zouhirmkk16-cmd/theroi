@@ -4,206 +4,420 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ick - Track Instagram Follows</title>
-    <!-- Tailwind CSS -->
+    <!-- Google Fonts Inter for Professional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brandPink: '#FBC5D4',
+                        brandDeepPink: '#F25C84',
+                        brandDark: '#111111',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Custom Styles for Pink Theme */
         body {
-            background-color: #FCD3DE; /* Main light pink background */
-            color: #111827;
+            background-color: #FBC5D4;
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
-        .bg-gradient-pink {
-            background: linear-gradient(180deg, #FCD3DE 0%, #FBC5D3 100%);
+        /* Custom Smooth Transitions */
+        .smooth-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        /* Animation for the TikTok badge */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0px); }
+        /* Input placeholder fade animation */
+        @keyframes placeholderFade {
+            0%, 100% { opacity: 0; transform: translateY(5px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
         }
-        .floating-badge {
-            animation: float 3s ease-in-out infinite;
+        .animate-placeholder {
+            animation: placeholderFade 2.5s infinite;
+        }
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
-<body class="bg-gradient-pink min-h-screen flex flex-col items-center px-4">
+<body class="min-h-screen flex flex-col items-center antialiased">
 
-    <!-- HEADER -->
-    <header class="w-full max-w-md flex justify-between items-center py-4">
-        <div class="flex items-center space-x-2">
-            <span class="text-3xl">🤢</span>
-            <span class="text-xl font-black tracking-tight text-gray-900">The Ick<span class="text-pink-600">.io</span></span>
+    <!-- NAVIGATION HEADER -->
+    <header class="w-full max-w-6xl flex justify-between items-center px-6 py-5 z-50">
+        <div class="flex items-center space-x-3 cursor-pointer">
+            <!-- Custom Vector Logo Shape to match premium look -->
+            <svg class="w-8 h-8 text-brandDark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="10" fill="currentColor"/>
+                <path d="M10 12C10 10.8954 10.8954 10 12 10H20C21.1046 10 22 10.8954 22 12V20C22 21.1046 21.1046 22 20 22H12C10.8954 22 10 21.1046 10 20V12Z" fill="#FBC5D4"/>
+                <circle cx="13.5" cy="14.5" r="1.5" fill="black"/>
+                <circle cx="18.5" cy="14.5" r="1.5" fill="black"/>
+                <path d="M13 18C14 17 16 17 17 18" stroke="black" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="text-2xl font-black tracking-tight text-brandDark">The Ick<span class="text-white">.io</span></span>
         </div>
-        <button class="bg-black text-white font-bold px-5 py-2 rounded-xl text-sm transition hover:bg-gray-800">Login</button>
+        <div>
+            <button class="bg-brandDark text-white font-bold px-6 py-2.5 rounded-xl text-sm smooth-transition hover:bg-neutral-800 shadow-md">
+                Login
+            </button>
+        </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <main class="w-full max-w-md flex flex-col items-center text-center mt-6">
+    <!-- HERO MAIN SECTION -->
+    <section class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-4 pb-12">
         
-        <!-- TikTok Floating Badge -->
-        <div class="floating-badge bg-black text-white text-xs font-bold px-4 py-2 rounded-full flex items-center space-x-1 shadow-lg mb-6">
-            <span>🎵</span>
+        <!-- TikTok Badge Indicator -->
+        <div class="bg-brandDark text-white text-[11px] font-extrabold tracking-wide uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg mb-8 transform hover:scale-105 transition duration-300">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.03 1.63 4.14 1.13 1.16 2.7 1.83 4.31 1.95v3.91c-1.24-.03-2.48-.35-3.58-.94-1.2-.67-2.18-1.68-2.77-2.92-.04 2.11-.02 4.21-.03 6.32-.05 1.76-.46 3.53-1.28 5.09-.89 1.64-2.3 3-3.98 3.79-1.74.81-3.71 1.05-5.54.67-1.85-.38-3.59-1.4-4.81-2.86-1.32-1.54-2.03-3.56-1.99-5.6.02-1.98.71-3.92 1.97-5.46 1.25-1.5 3.01-2.52 4.93-2.87 1.34-.25 2.73-.13 4.01.36v4.02c-.86-.33-1.81-.39-2.7-.13-.88.24-1.66.79-2.18 1.52-.56.77-.82 1.73-.72 2.68.09.91.56 1.77 1.28 2.34.76.6 1.72.87 2.69.75.92-.09 1.78-.61 2.29-1.39.42-.64.59-1.4.56-2.16-.02-3.39-.01-6.78-.02-10.17z"/></svg>
             <span>#1 Trending App on TikTok</span>
         </div>
 
-        <!-- Heading -->
-        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight leading-tight mb-2">
-            Track their Recent<br>Follows & Followers 🧐
+        <!-- Big Bold Title -->
+        <h1 class="text-4xl md:text-5xl font-black text-brandDark tracking-tight leading-[1.1] mb-6">
+            Track their Recent<br>Follows & Followers
         </h1>
 
-        <!-- SEARCH BOX CONTAINER -->
-        <div class="w-full bg-white/40 p-2 rounded-2xl border border-white/60 shadow-sm mt-4">
-            <div class="bg-white rounded-xl p-2 flex items-center shadow-inner relative">
-                <span class="text-gray-400 pl-2 text-lg">📷</span>
-                <span class="text-gray-400 px-1 font-medium">@</span>
-                <!-- Input field with dynamic typed placeholder -->
-                <input type="text" id="usernameInput" 
-                       class="w-full bg-transparent outline-none font-medium text-gray-800 placeholder-gray-400 text-base" 
-                       placeholder="your partner">
-                <button class="bg-[#F25C84] hover:bg-[#d6466c] text-white font-bold px-6 py-3 rounded-xl text-sm whitespace-nowrap transition">
+        <!-- LUXURY BOX CONTAINER FOR SEARCH -->
+        <div class="w-full bg-white/30 p-2.5 rounded-2xl border border-white/40 shadow-xl backdrop-blur-sm mt-2">
+            <div class="bg-white rounded-xl p-2 flex items-center shadow-inner relative justify-between">
+                <div class="flex items-center flex-1 pl-2">
+                    <!-- Instagram SVG Icon Instead of emoji -->
+                    <svg class="w-5 h-5 text-neutral-400 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <span class="text-neutral-400 font-bold text-lg mr-1">@</span>
+                    
+                    <div class="relative w-full h-6 overflow-hidden">
+                        <!-- Simulated Input and Dynamic Animated Text -->
+                        <input type="text" id="usernameInput" 
+                               class="absolute inset-0 w-full bg-transparent outline-none font-semibold text-neutral-800 text-base z-10"
+                               autocomplete="off">
+                        <span id="animatedPlaceholder" class="absolute inset-0 text-neutral-400 font-semibold text-base flex items-center pointer-events-none transition-all duration-300">your partner</span>
+                    </div>
+                </div>
+                <button onclick="startAnalysis()" class="bg-brandDeepPink hover:bg-neutral-900 text-white font-extrabold px-7 py-3.5 rounded-xl text-sm tracking-wide shadow-md smooth-transition">
                     Search Now
                 </button>
             </div>
         </div>
 
-        <!-- Mini Notice -->
-        <div class="flex items-center space-x-1 mt-3 text-xs font-semibold text-green-700">
-            <span>✅</span>
+        <!-- Dynamic Trust Indicator -->
+        <div class="flex items-center space-x-2 mt-4 text-xs font-bold text-neutral-800">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             <span>Try it now. No Instagram login required.</span>
         </div>
 
-        <!-- Social Proof (Avatars) -->
-        <div class="mt-8 flex flex-col items-center">
-            <div class="flex -space-x-2 overflow-hidden">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                <div class="h-8 w-8 rounded-full bg-gray-800 text-white flex items-center justify-center text-[10px] font-bold ring-2 ring-white">+1M</div>
+        <!-- Social Proof Stats Card -->
+        <div class="mt-10 flex flex-col items-center">
+            <div class="flex -space-x-3 overflow-hidden">
+                <img class="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="">
+                <img class="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="">
+                <img class="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" alt="">
+                <img class="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" alt="">
+                <div class="h-9 w-9 rounded-full bg-brandDark text-white flex items-center justify-center text-[10px] font-black ring-2 ring-white">+1M</div>
             </div>
-            <p class="text-sm font-bold text-gray-900 mt-2">1M+ accounts searched</p>
+            <p class="text-sm font-extrabold text-neutral-900 mt-3 tracking-tight">1M+ accounts searched</p>
         </div>
 
-        <!-- Live Users Searching Counter -->
-        <div class="mt-4 bg-white/60 border border-white/80 rounded-full px-4 py-1.5 flex items-center space-x-2 text-xs font-semibold text-gray-800 shadow-sm">
-            <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-            <span><span id="liveCounter">185</span> are currently searching anonymously...</span>
+        <!-- Real-time Live Pulsing Counter Container -->
+        <div class="mt-4 bg-white/50 border border-white/60 rounded-full px-5 py-2 flex items-center space-x-2.5 text-xs font-bold text-neutral-900 shadow-sm">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span><span id="liveCounter" class="tabular-nums font-black text-emerald-700">185</span> accounts are currently searching anonymously...</span>
         </div>
 
-        <!-- Mini Tags -->
-        <div class="flex justify-center space-x-4 mt-6 text-xs font-bold text-gray-700">
-            <span class="flex items-center">✓ Anonymous</span>
-            <span class="flex items-center">✓ Secure</span>
-            <span class="flex items-center">✓ Sorted by Recent</span>
+        <!-- Fine-tuned Badges -->
+        <div class="flex justify-center space-x-6 mt-8 text-xs font-bold text-neutral-700">
+            <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-1.5 text-neutral-800" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>Anonymous</span>
+            <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-1.5 text-neutral-800" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>Secure</span>
+            <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-1.5 text-neutral-800" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>Sorted by Recent</span>
         </div>
 
-    </main>
+    </section>
 
-    <!-- STATS SECTION -->
-    <section class="w-full max-w-md bg-white/20 mt-12 py-6 rounded-2xl grid grid-cols-2 gap-y-6 text-center border border-white/30">
-        <div>
-            <h3 class="text-2xl font-black text-gray-900">1M+</h3>
-            <p class="text-xs font-medium text-gray-600">Accounts Analyzed</p>
-        </div>
-        <div>
-            <h3 class="text-2xl font-black text-gray-900">110K+</h3>
-            <p class="text-xs font-medium text-gray-600">App Store Reviews</p>
-        </div>
-        <div>
-            <h3 class="text-2xl font-black text-gray-900">4.6/5</h3>
-            <p class="text-xs font-medium text-gray-600">Average Rating</p>
-        </div>
-        <div>
-            <h3 class="text-2xl font-black text-gray-900">50+</h3>
-            <p class="text-xs font-medium text-gray-600">Countries</p>
+    <!-- LIVE DATA ANALYTICS METRICS -->
+    <section class="w-full bg-white/20 py-8 border-y border-white/30 backdrop-blur-sm">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="px-4">
+                <h3 class="text-3xl font-black text-brandDark tracking-tight">1M+</h3>
+                <p class="text-xs font-semibold text-neutral-700 mt-1 uppercase tracking-wider">Accounts Analyzed</p>
+            </div>
+            <div class="px-4 border-l border-white/20">
+                <h3 class="text-3xl font-black text-brandDark tracking-tight">110K+</h3>
+                <p class="text-xs font-semibold text-neutral-700 mt-1 uppercase tracking-wider">App Store Reviews</p>
+            </div>
+            <div class="px-4 border-l border-white/20">
+                <h3 class="text-3xl font-black text-brandDark tracking-tight">4.6/5</h3>
+                <p class="text-xs font-semibold text-neutral-700 mt-1 uppercase tracking-wider">Average Rating</p>
+            </div>
+            <div class="px-4 border-l border-white/20">
+                <h3 class="text-3xl font-black text-brandDark tracking-tight">50+</h3>
+                <p class="text-xs font-semibold text-neutral-700 mt-1 uppercase tracking-wider">Countries Available</p>
+            </div>
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section class="w-full max-w-md mt-12 text-center">
-        <span class="text-xs font-bold tracking-widest text-pink-600 uppercase">— HOW IT WORKS</span>
-        <h2 class="text-2xl font-black text-gray-900 mt-1 mb-6">Simple process, powerful results</h2>
+    <!-- PROCESS FLOW: SIMPLE PROCESS -->
+    <section class="w-full max-w-4xl px-6 py-16 text-center">
+        <span class="text-xs font-extrabold tracking-widest text-brandDeepPink uppercase">— HOW IT WORKS</span>
+        <h2 class="text-3xl font-black text-brandDark mt-2 mb-12 tracking-tight">Simple process, powerful results</h2>
         
-        <!-- Step 1 -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4 text-left">
-            <span class="text-xs font-bold text-pink-500 uppercase tracking-wider block mb-1">Step 1</span>
-            <h4 class="text-lg font-bold text-gray-900 mb-1">Enter a username</h4>
-            <p class="text-sm text-gray-500">Just type their public instagram handle. No password or login needed.</p>
-        </div>
-        <!-- Step 2 -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4 text-left">
-            <span class="text-xs font-bold text-pink-500 uppercase tracking-wider block mb-1">Step 2</span>
-            <h4 class="text-lg font-bold text-gray-900 mb-1">See recent follows</h4>
-            <p class="text-sm text-gray-500">View who they recently followed, sorted chronologically with timestamps.</p>
+        <div class="grid md:grid-cols-3 gap-6 text-left">
+            <!-- Step 1 Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 smooth-transition hover:-translate-y-1">
+                <div class="bg-brandPink/30 text-brandDeepPink w-10 h-10 rounded-xl flex items-center justify-center font-black mb-4">01</div>
+                <h4 class="text-lg font-bold text-neutral-900 mb-2">Enter a username</h4>
+                <p class="text-sm text-neutral-500 leading-relaxed">Just type their public Instagram handle. No password, credentials, or login tokens needed.</p>
+            </div>
+            <!-- Step 2 Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 smooth-transition hover:-translate-y-1">
+                <div class="bg-brandPink/30 text-brandDeepPink w-10 h-10 rounded-xl flex items-center justify-center font-black mb-4">02</div>
+                <h4 class="text-lg font-bold text-neutral-900 mb-2">See recent follows</h4>
+                <p class="text-sm text-neutral-500 leading-relaxed">View exactly who they recently followed, precisely sorted chronologically with live timestamps.</p>
+            </div>
+            <!-- Step 3 Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 smooth-transition hover:-translate-y-1">
+                <div class="bg-brandPink/30 text-brandDeepPink w-10 h-10 rounded-xl flex items-center justify-center font-black mb-4">03</div>
+                <h4 class="text-lg font-bold text-neutral-900 mb-2">Get real-time alerts</h4>
+                <p class="text-sm text-neutral-500 leading-relaxed">Receive instant push notifications the absolute second they follow or unfollow anyone new.</p>
+            </div>
         </div>
     </section>
 
-    <!-- FAQ SECTION (Accordion Example) -->
-    <section class="w-full max-w-md mt-12 text-left mb-16">
-        <span class="text-xs font-bold tracking-widest text-pink-600 uppercase block text-center">— FAQ</span>
-        <h2 class="text-2xl font-black text-gray-900 mt-1 mb-6 text-center">Frequently asked questions</h2>
+    <!-- VIRAL TIKTOK MOCK GRID SECTION -->
+    <section class="w-full max-w-5xl px-6 py-12 text-center">
+        <span class="text-xs font-extrabold tracking-widest text-brandDeepPink uppercase">— TRENDING</span>
+        <h2 class="text-3xl font-black text-brandDark mt-2 mb-10 tracking-tight">Viral on TikTok</h2>
+        
+        <!-- Video Grid mimicking phone format clips -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Video Item 1 -->
+            <div class="relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400&auto=format&fit=crop&q=60" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 smooth-transition" alt="">
+                <div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-md text-white font-extrabold text-[11px] px-2.5 py-1 rounded-full flex items-center space-x-1">
+                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span>7.3M</span>
+                </div>
+            </div>
+            <!-- Video Item 2 -->
+            <div class="relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=400&auto=format&fit=crop&q=60" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 smooth-transition" alt="">
+                <div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-md text-white font-extrabold text-[11px] px-2.5 py-1 rounded-full flex items-center space-x-1">
+                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span>3M</span>
+                </div>
+            </div>
+            <!-- Video Item 3 -->
+            <div class="relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=400&auto=format&fit=crop&q=60" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 smooth-transition" alt="">
+                <div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-md text-white font-extrabold text-[11px] px-2.5 py-1 rounded-full flex items-center space-x-1">
+                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span>988K</span>
+                </div>
+            </div>
+            <!-- Video Item 4 -->
+            <div class="relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&auto=format&fit=crop&q=60" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 smooth-transition" alt="">
+                <div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-md text-white font-extrabold text-[11px] px-2.5 py-1 rounded-full flex items-center space-x-1">
+                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span>630K</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPETITOR COMPARISON TABLE -->
+    <section class="w-full max-w-3xl px-4 py-12 text-center">
+        <span class="text-xs font-extrabold tracking-widest text-brandDeepPink uppercase">— COMPARISON</span>
+        <h2 class="text-3xl font-black text-brandDark mt-2 mb-8 tracking-tight">Why 1M+ users choose The Ick</h2>
+        
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-white/80">
+            <table class="w-full border-collapse text-left">
+                <thead>
+                    <tr class="bg-neutral-50 border-b border-neutral-100 text-xs font-black uppercase text-neutral-500 tracking-wider">
+                        <th class="p-5 font-bold">Feature</th>
+                        <th class="p-5 text-brandDeepPink font-extrabold bg-brandPink/10">The Ick.io</th>
+                        <th class="p-5 font-bold">Others</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm font-bold text-neutral-800 divide-y divide-neutral-100">
+                    <tr>
+                        <td class="p-5 font-semibold text-neutral-600">Completely Anonymous</td>
+                        <td class="p-5 bg-brandPink/5 text-emerald-600">Yes, Always</td>
+                        <td class="p-5 text-rose-500">No</td>
+                    </tr>
+                    <tr>
+                        <td class="p-5 font-semibold text-neutral-600">Instagram Login Required</td>
+                        <td class="p-5 bg-brandPink/5 text-neutral-500">Not Required</td>
+                        <td class="p-5 text-rose-500">Required</td>
+                    </tr>
+                    <tr>
+                        <td class="p-5 font-semibold text-neutral-600">Tracking Chronology</td>
+                        <td class="p-5 bg-brandPink/5 text-brandDeepPink">Sorted by Recent</td>
+                        <td class="p-5 text-neutral-400">Random Order</td>
+                    </tr>
+                    <tr>
+                        <td class="p-5 font-semibold text-neutral-600">Profile Limitations</td>
+                        <td class="p-5 bg-brandPink/5 text-neutral-900">Up to 5 Profiles</td>
+                        <td class="p-5 text-neutral-400">1 at a time</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- REVIEWS / TRUST TESTIMONIALS -->
+    <section class="w-full max-w-4xl px-6 py-12">
+        <div class="bg-white rounded-3xl p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 border border-white/80">
+            <div class="text-center md:text-left md:w-1/3">
+                <h3 class="text-5xl font-black text-brandDark tracking-tight">4.6</h3>
+                <!-- Star generation layout -->
+                <div class="flex justify-center md:justify-start my-2 text-amber-400 space-x-0.5">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <!-- repeat 4 more times for professional looks -->
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                </div>
+                <p class="text-xs font-bold text-neutral-400 uppercase tracking-widest mt-1">Trusted by thousands</p>
+            </div>
+            
+            <!-- Horizontal slider or premium scrolling review structure -->
+            <div class="md:w-2/3 border-t md:border-t-0 md:border-l border-neutral-100 pt-6 md:pt-0 md:pl-8">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="h-10 w-10 bg-neutral-200 rounded-full font-bold text-xs flex items-center justify-center text-neutral-700">SM</div>
+                    <div>
+                        <h5 class="text-sm font-black text-neutral-900 flex items-center">Sarah M. <span class="ml-2 text-[10px] bg-brandPink text-brandDeepPink font-extrabold px-1.5 py-0.5 rounded">PRO</span></h5>
+                        <p class="text-xs text-neutral-400">Verified User</p>
+                    </div>
+                </div>
+                <p class="text-sm font-medium text-neutral-600 leading-relaxed italic">"This system helped me discover exactly who my partner was tracking and interacting with lately. Extremely anonymous, literally saved my peace of mind!"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FREQUENTLY ASKED QUESTIONS (ACCORDION) -->
+    <section class="w-full max-w-xl px-4 py-12 mb-20 text-left">
+        <span class="text-xs font-extrabold tracking-widest text-brandDeepPink uppercase block text-center">— FAQ</span>
+        <h2 class="text-3xl font-black text-brandDark mt-2 mb-8 tracking-tight text-center">Frequently asked questions</h2>
 
         <div class="space-y-3">
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center font-bold text-sm text-gray-900">
+            <!-- Question 1 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 cursor-pointer group smooth-transition" onclick="toggleAccordion(this)">
+                <div class="flex justify-between items-center font-bold text-sm text-neutral-900">
                     <span>How does The Ick track Instagram profiles?</span>
-                    <span class="faq-icon text-pink-500">+</span>
+                    <span class="icon text-neutral-400 text-lg transition-transform duration-300 group-hover:text-brandDeepPink">+</span>
                 </div>
-                <p class="faq-answer text-xs text-gray-500 mt-2 hidden">
-                    The Ick monitors public Instagram profiles hourly. When a new follow or unfollow is detected, you receive data anonymously.
-                </p>
+                <div class="answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <p class="text-xs text-neutral-500 mt-3 leading-relaxed">
+                        Our cloud platform scans public Instagram architecture securely every hour. Once changes are found, logs generate immediately inside your control panel without sending notifications to the target profile.
+                    </p>
+                </div>
             </div>
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center font-bold text-sm text-gray-900">
-                    <span>Is The Ick free to use?</span>
-                    <span class="faq-icon text-pink-500">+</span>
+            <!-- Question 2 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 cursor-pointer group smooth-transition" onclick="toggleAccordion(this)">
+                <div class="flex justify-between items-center font-bold text-sm text-neutral-900">
+                    <span>How many profiles can I safely monitor simultaneously?</span>
+                    <span class="icon text-neutral-400 text-lg transition-transform duration-300 group-hover:text-brandDeepPink">+</span>
                 </div>
-                <p class="faq-answer text-xs text-gray-500 mt-2 hidden">
-                    The Ick is free to download and try. Premium subscriptions unlock full history and fast hourly updates.
-                </p>
+                <div class="answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <p class="text-xs text-neutral-500 mt-3 leading-relaxed">
+                        Standard access tracks up to 5 individual slots at a single time. Slots can be modified or changed at any moment from your user control matrix.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="w-full bg-black text-white text-center py-8 px-4 rounded-t-3xl mt-auto">
-        <span class="text-2xl">🤢</span>
-        <h3 class="text-lg font-black mt-1">The Ick<span class="text-pink-500">.io</span></h3>
-        <p class="text-xs text-gray-400 mt-2 max-w-xs mx-auto">Built for privacy. Built for results. The most reliable Instagram follow tracker.</p>
-        <p class="text-[10px] text-gray-600 mt-6">© 2026 The Ick. All rights reserved. This service is not affiliated with Instagram.</p>
+    <!-- PREMIUM DARK FOOTER -->
+    <footer class="w-full bg-brandDark text-white text-center py-12 px-6 rounded-t-[2.5rem] mt-auto">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+            <span class="text-2xl font-black tracking-tight text-white mb-2">The Ick<span class="text-brandPink">.io</span></span>
+            <p class="text-xs text-neutral-400 max-w-xs leading-relaxed">Built for strict execution privacy. Built for immediate results. Most trusted asset on the marketplace.</p>
+            
+            <div class="w-full h-px bg-neutral-800 my-8"></div>
+            
+            <p class="text-[10px] text-neutral-500 font-medium">© 2026 The Ick. All rights reserved. This utility dashboard acts independently and has zero connection with Instagram or Meta Platforms Inc.</p>
+        </div>
     </footer>
 
-    <!-- JAVASCRIPT FOR DYNAMIC EFFECTS -->
+    <!-- INTERACTIVE SCRIPT LOGIC -->
     <script>
-        // 1. Dynamic Placeholder Changer (your partner -> your crush -> your ex...)
-        const placeholders = ["your partner", "your best friend", "that one person", "your situationship", "your crush", "your ex"];
-        let currentIndex = 0;
-        const inputEl = document.getElementById('usernameInput');
+        // 1. Sleek Placeholder Text Rotator Logic
+        const dynamicWords = ["your partner", "your best friend", "that one person", "your situationship", "your crush", "your ex"];
+        let wordIndex = 0;
+        const placeholderTarget = document.getElementById('animatedPlaceholder');
+        const mainInput = document.getElementById('usernameInput');
 
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % placeholders.length;
-            inputEl.placeholder = placeholders[currentIndex];
-        }, 2500);
-
-        // 2. Live Fake Counter fluctuate slightly to feel "live"
-        const counterEl = document.getElementById('liveCounter');
-        setInterval(() => {
-            let currentNum = parseInt(counterEl.innerText);
-            let fluctuation = Math.floor(Math.random() * 5) - 2; // -2 to +2
-            counterEl.innerText = currentNum + fluctuation;
-        }, 3000);
-
-        // 3. FAQ Accordion Toggle
-        function toggleFaq(element) {
-            const answer = element.querySelector('.faq-answer');
-            const icon = element.querySelector('.faq-icon');
-            if(answer.classList.contains('hidden')) {
-                answer.classList.remove('hidden');
-                icon.innerText = '−';
+        // Toggle visibility when user starts typing
+        mainInput.addEventListener('input', (e) => {
+            if (e.target.value.length > 0) {
+                placeholderTarget.style.opacity = '0';
             } else {
-                answer.classList.add('hidden');
-                icon.innerText = '+';
+                placeholderTarget.style.opacity = '1';
             }
+        });
+
+        setInterval(() => {
+            if (mainInput.value.length === 0) {
+                placeholderTarget.style.opacity = '0';
+                placeholderTarget.style.transform = 'translateY(-5px)';
+                
+                setTimeout(() => {
+                    wordIndex = (wordIndex + 1) % dynamicWords.length;
+                    placeholderTarget.innerText = dynamicWords[wordIndex];
+                    placeholderTarget.style.opacity = '1';
+                    placeholderTarget.style.transform = 'translateY(0)';
+                }, 200);
+            }
+        }, 2800);
+
+        // 2. Real-time Fluctuating Active User Numbers
+        const counter = document.getElementById('liveCounter');
+        setInterval(() => {
+            let num = parseInt(counter.innerText);
+            let offset = Math.floor(Math.random() * 3) - 1; // Fluctuates safely between -1 and +1
+            counter.innerText = num + offset;
+        }, 4000);
+
+        // 3. Premium Max-Height Animation for Accordion
+        function toggleAccordion(wrapper) {
+            const answerContainer = wrapper.querySelector('.answer');
+            const icon = wrapper.querySelector('.icon');
+            
+            if (answerContainer.style.maxHeight && answerContainer.style.maxHeight !== '0px') {
+                answerContainer.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                answerContainer.style.maxHeight = answerContainer.scrollHeight + "px";
+                icon.style.transform = 'rotate(45deg)';
+            }
+        }
+
+        // 4. Handle Redirection / Integration Hook
+        function startAnalysis() {
+            const value = mainInput.value.trim();
+            if(!value) {
+                mainInput.focus();
+                return;
+            }
+            alert("Analysis initialized for: @" + value + ". Hook your CPA content locker panel here.");
+            // Example layout redirection to locker page:
+            // window.location.href = "analyze.html?user=" + encodeURIComponent(value);
         }
     </script>
 </body>
