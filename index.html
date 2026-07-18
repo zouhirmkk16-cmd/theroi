@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ick - Track Instagram Follows</title>
+    <title>The Ick - Follow Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brandPink: '#FCD3DE',
-                        brandDeepPink: '#F25C84',
-                        brandDark: '#0D0D0D',
+                        theIckPink: '#FBC5D4',
+                        theIckHotPink: '#F25C84',
+                        theIckBlack: '#0D0D0D'
                     }
                 }
             }
@@ -26,306 +24,204 @@
     </script>
     <style>
         body {
-            background-color: #FCD3DE;
+            background-color: #FBC5D4;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
-        /* Premium Smooth Floating Animation */
-        @keyframes customFloat {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-6px) scale(1.02); }
-            100% { transform: translateY(0px) scale(1); }
+        /* Custom Input focus layout */
+        .premium-input:focus-within {
+            box-shadow: 0 0 0 4px rgba(242, 92, 132, 0.25);
         }
-        .premium-float {
-            animation: customFloat 4s ease-in-out infinite;
+        /* Continuous floating animation for the main badge */
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
-        /* Custom dynamic placeholder */
-        .placeholder-fade {
-            transition: all 0.25s ease-in-out;
+        .animate-badge {
+            animation: floatBadge 2.5s ease-in-out infinite;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center antialiased">
 
-    <header class="w-full max-w-5xl flex justify-between items-center px-6 py-5 z-50">
-        <div class="flex items-center space-x-2 cursor-pointer group">
-            <div class="w-9 h-9 bg-brandDark rounded-xl flex items-center justify-center font-black text-xl text-white group-hover:scale-105 transition duration-300">🤢</div>
-            <span class="text-xl font-black tracking-tight text-brandDark">theick<span class="text-white">.io</span></span>
+    <header class="w-full max-w-5xl flex justify-between items-center px-6 py-4">
+        <div class="flex items-center space-x-1.5 cursor-pointer">
+            <span class="text-2xl font-black text-theIckBlack tracking-tight">theick<span class="text-white">.io</span></span>
         </div>
-        <div class="flex items-center space-x-4">
-            <button class="text-sm font-bold text-brandDark/80 hover:text-brandDark transition">Pricing</button>
-            <button class="bg-brandDark text-white font-bold px-5 py-2.5 rounded-xl text-xs tracking-wide transition hover:bg-neutral-800 shadow-sm">
+        <div class="flex items-center space-x-5">
+            <a href="#" class="text-sm font-semibold text-theIckBlack/80 hover:text-theIckBlack transition">Pricing</a>
+            <button class="bg-theIckBlack text-white font-bold px-5 py-2 rounded-xl text-xs uppercase tracking-wider transition hover:bg-neutral-900">
                 Log In
             </button>
         </div>
     </header>
 
-    <section class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-6 pb-12">
+    <main class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-4 pb-12">
         
-        <div class="premium-float bg-brandDark text-white text-[10px] font-extrabold tracking-widest uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-md mb-6">
-            <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
-            </span>
+        <div class="animate-badge bg-theIckBlack text-white text-[10px] font-black tracking-widest uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg mb-6">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
             <span>🔥 #1 Trending App on TikTok</span>
         </div>
 
-        <h1 class="text-4xl md:text-5xl font-black text-brandDark tracking-tight leading-[1.15] mb-6">
+        <h1 class="text-4xl md:text-5xl font-black text-theIckBlack tracking-tight leading-[1.12] mb-6">
             Track their Recent<br>Follows & Followers
         </h1>
 
-        <div class="w-full bg-white/30 p-2 rounded-2xl border border-white/50 shadow-xl backdrop-blur-md">
-            <div class="bg-white rounded-xl p-1.5 flex items-center shadow-inner relative justify-between border border-neutral-100 focus-within:ring-2 focus-within:ring-brandDeepPink/40 transition-all duration-300">
+        <div class="w-full bg-white/20 p-2 rounded-2xl border border-white/40 shadow-xl backdrop-blur-sm">
+            <div class="premium-input bg-white rounded-xl p-1.5 flex items-center shadow-inner justify-between transition-all duration-200">
                 <div class="flex items-center flex-1 pl-3">
                     <span class="text-neutral-400 font-bold text-lg mr-1">@</span>
-                    <div class="relative w-full h-6 overflow-hidden">
+                    <div class="relative w-full h-6 flex items-center">
                         <input type="text" id="usernameInput" 
                                class="absolute inset-0 w-full bg-transparent outline-none font-semibold text-neutral-800 text-base z-10"
                                autocomplete="off">
-                        <span id="animatedPlaceholder" class="placeholder-fade absolute inset-0 text-neutral-400 font-semibold text-base flex items-center pointer-events-none">your partner</span>
+                        <span id="animatedPlaceholder" class="absolute left-0 text-neutral-400 font-semibold text-base pointer-events-none transition-all duration-300">your partner</span>
                     </div>
                 </div>
-                <button onclick="startAnalysis()" class="bg-brandDeepPink hover:bg-brandDark text-white font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-md transition-all duration-300">
+                <button onclick="startProcessing()" class="bg-theIckHotPink hover:bg-theIckBlack text-white font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-sm transition-colors duration-300">
                     Search Now
                 </button>
             </div>
         </div>
 
-        <div class="flex items-center space-x-1.5 mt-3 text-[11px] font-bold text-neutral-800/80">
-            <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-            <span>Try it now. No instagram login required.</span>
+        <div class="flex items-center space-x-1.5 mt-3.5 text-[11px] font-bold text-theIckBlack/80">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <span>Try it now. No Instagram login required.</span>
         </div>
 
-        <div class="mt-8 flex flex-col items-center">
-            <div class="flex -space-x-2.5 overflow-hidden">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80" alt="">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="">
-                <div class="h-8 w-8 rounded-full bg-brandDark text-white flex items-center justify-center text-[9px] font-black ring-2 ring-white">+1M</div>
-            </div>
-            <p class="text-xs font-black text-brandDark mt-2">1M+ accounts analyzed</p>
-        </div>
-
-        <div class="mt-4 bg-white/40 border border-white/50 rounded-full px-4 py-1.5 flex items-center space-x-2 text-[11px] font-bold text-brandDark shadow-sm">
+        <div class="mt-8 bg-white/40 border border-white/50 rounded-full px-5 py-2 flex items-center space-x-2.5 text-xs font-bold text-theIckBlack shadow-md">
             <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span><span id="liveCounter" class="font-black text-emerald-700">342</span> users are currently searching anonymously...</span>
+            <span><span id="liveCounter" class="font-black text-emerald-700">289</span> accounts are currently being searched anonymously...</span>
         </div>
 
-    </section>
+    </main>
 
-    <section class="w-full bg-white/10 py-6 border-y border-white/20 backdrop-blur-sm">
-        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+    <section class="w-full bg-white/10 py-8 border-y border-white/20 backdrop-blur-sm">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-                <h3 class="text-2xl font-black text-brandDark tracking-tight">1,249,042</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">Profiles Tracked</p>
+                <h3 class="text-2xl font-black text-theIckBlack">1,492,024</h3>
+                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-1">Analyzed Accounts</p>
             </div>
             <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-brandDark tracking-tight">110,480+</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">5-Star Reviews</p>
+                <h3 class="text-2xl font-black text-theIckBlack">112,090+</h3>
+                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-1">Verified Reviews</p>
             </div>
             <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-brandDark tracking-tight">4.9 / 5.0</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">Satisfaction Rate</p>
+                <h3 class="text-2xl font-black text-theIckBlack">4.9 / 5.0</h3>
+                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-1">Rating Average</p>
             </div>
             <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-brandDark tracking-tight">Every 1h</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">System Updates</p>
+                <h3 class="text-2xl font-black text-theIckBlack">Real-Time</h3>
+                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-1">Hourly Logs</p>
             </div>
         </div>
     </section>
 
-    <section class="w-full max-w-4xl px-6 py-14 text-center">
-        <span class="text-xs font-black tracking-widest text-brandDeepPink uppercase">— AS SEEN ON TIKTOK</span>
-        <h2 class="text-2xl md:text-3xl font-black text-brandDark mt-1.5 mb-8 tracking-tight">Going Viral Everywhere</h2>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-md group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=300&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition duration-500" alt="">
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                    <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white text-xl border border-white/30">▶</div>
-                </div>
-                <div class="absolute bottom-3 left-3 bg-black/50 backdrop-blur-md text-white font-black text-[10px] px-2.5 py-1 rounded-full flex items-center space-x-1">
-                    <span>🔥 4.2M views</span>
-                </div>
-            </div>
-            <div class="relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-md group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=300&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition duration-500" alt="">
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                    <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white text-xl border border-white/30">▶</div>
-                </div>
-                <div class="absolute bottom-3 left-3 bg-black/50 backdrop-blur-md text-white font-black text-[10px] px-2.5 py-1 rounded-full flex items-center space-x-1">
-                    <span>🔥 1.8M views</span>
-                </div>
-            </div>
-            <div class="relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-md group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=300&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition duration-500" alt="">
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                    <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white text-xl border border-white/30">▶</div>
-                </div>
-                <div class="absolute bottom-3 left-3 bg-black/50 backdrop-blur-md text-white font-black text-[10px] px-2.5 py-1 rounded-full flex items-center space-x-1">
-                    <span>🔥 940K views</span>
-                </div>
-            </div>
-            <div class="relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-md group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=300&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition duration-500" alt="">
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                    <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white text-xl border border-white/30">▶</div>
-                </div>
-                <div class="absolute bottom-3 left-3 bg-black/50 backdrop-blur-md text-white font-black text-[10px] px-2.5 py-1 rounded-full flex items-center space-x-1">
-                    <span>🔥 612K views</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="w-full max-w-4xl px-6 py-10">
-        <div class="text-center mb-10">
-            <span class="text-xs font-black tracking-widest text-brandDeepPink uppercase">— TESTIMONIALS</span>
-            <h2 class="text-2xl md:text-3xl font-black text-brandDark mt-1.5 tracking-tight">What our community says</h2>
+    <section class="w-full max-w-4xl px-6 py-16">
+        <div class="text-center mb-12">
+            <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— LIVE FEEDBACK</span>
+            <h2 class="text-2xl md:text-3xl font-black text-theIckBlack mt-1.5 tracking-tight">Real Reviews from Real Users</h2>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-white/60 flex flex-col justify-between">
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-neutral-100 flex flex-col justify-between">
                 <div>
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@j</div>
+                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-600">@e</div>
                             <div>
-                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@jessica_m <span class="ml-1 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
-                                <p class="text-[9px] text-neutral-400">1 day ago</p>
+                                <h4 class="text-xs font-black text-neutral-900">@emily_rose</h4>
+                                <p class="text-[9px] text-neutral-400">Verified Buyer • 2h ago</p>
                             </div>
                         </div>
-                        <div class="flex text-amber-400 space-x-0.5">
-                            <span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span>
-                        </div>
+                        <div class="flex text-amber-400 space-x-0.5 text-xs">★ ★ ★ ★ ★</div>
                     </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Honestly, I was skeptical at first but this tool is terrifyingly accurate. Found exactly who my boyfriend followed last night within an hour."</p>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"This app is literally insane. I found out exactly who my partner followed within seconds. 100% anonymous as promised!"</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-white/60 flex flex-col justify-between">
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-neutral-100 flex flex-col justify-between">
                 <div>
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@b</div>
+                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-600">@j</div>
                             <div>
-                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@bradley_k <span class="ml-1 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
-                                <p class="text-[9px] text-neutral-400">3 days ago</p>
+                                <h4 class="text-xs font-black text-neutral-900">@jake.dunne</h4>
+                                <p class="text-[9px] text-neutral-400">Verified Buyer • 1 day ago</p>
                             </div>
                         </div>
-                        <div class="flex text-amber-400 space-x-0.5">
-                            <span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span>
-                        </div>
+                        <div class="flex text-amber-400 space-x-0.5 text-xs">★ ★ ★ ★ ★</div>
                     </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"The anonymity is 100% real. I tested it with my own second account first and no notification or trace was left behind. Absolute peace of mind."</p>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Tested it with my backup account to verify privacy. It leaves zero trace or profile views history. Perfect tracking asset."</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-white/60 flex flex-col justify-between">
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-neutral-100 flex flex-col justify-between">
                 <div>
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@a</div>
+                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-600">@c</div>
                             <div>
-                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@amanda.clark <span class="ml-1 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
-                                <p class="text-[9px] text-neutral-400">Just now</p>
+                                <h4 class="text-xs font-black text-neutral-900">@chloe_clark</h4>
+                                <p class="text-[9px] text-neutral-400">Verified Buyer • 2 days ago</p>
                             </div>
                         </div>
-                        <div class="flex text-amber-400 space-x-0.5">
-                            <span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span>
-                        </div>
+                        <div class="flex text-amber-400 space-x-0.5 text-xs">★ ★ ★ ★ ★</div>
                     </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"The Ick saved me from wasting more months on a situationship that was lying to me. The recent follows tab doesn't lie!"</p>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Saved me from so much overthinking. The chronological order feature is perfect. Best choice out there."</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="w-full max-w-xl px-4 py-10 mb-16 text-left">
-        <h2 class="text-xl font-black text-brandDark mb-5 text-center">Frequently Asked Questions</h2>
-        <div class="space-y-2.5">
-            <div class="bg-white rounded-xl p-4 shadow-sm cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center font-bold text-xs text-neutral-800">
-                    <span>Will they know I checked their profile?</span>
-                    <span class="faq-icon text-brandDeepPink font-black text-base">+</span>
-                </div>
-                <p class="faq-answer text-[11px] text-neutral-500 mt-2 hidden leading-relaxed">
-                    No. The request is entirely handled by our cloud architecture servers. The target user receives zero alerts, hints, or logs.
-                </p>
-            </div>
-            <div class="bg-white rounded-xl p-4 shadow-sm cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center font-bold text-xs text-neutral-800">
-                    <span>Do I need to sign in with my password?</span>
-                    <span class="faq-icon text-brandDeepPink font-black text-base">+</span>
-                </div>
-                <p class="faq-answer text-[11px] text-neutral-500 mt-2 hidden leading-relaxed">
-                    Never. We will never ask for your Instagram account info, credentials, or access tokens.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="w-full bg-brandDark text-white text-center py-10 px-6 rounded-t-[2rem] mt-auto">
-        <span class="text-xl font-black tracking-tight text-white">theick<span class="text-brandPink">.io</span></span>
-        <p class="text-[10px] text-neutral-500 mt-4 max-w-xs mx-auto leading-relaxed">© 2026 The Ick. All legal rights reserved. This platform works as an independent analytical dashboard and is not affiliated with Instagram or Meta Platforms Inc.</p>
+    <footer class="w-full bg-theIckBlack text-white text-center py-12 px-6 rounded-t-[2rem] mt-auto">
+        <span class="text-xl font-black tracking-tight text-white">theick<span class="text-theIckPink">.io</span></span>
+        <p class="text-[10px] text-neutral-500 mt-4 max-w-xs mx-auto leading-relaxed">© 2026 The Ick. All rights reserved. This dashboard is an independent analytics tool and is not associated with Instagram or Meta Platforms Inc.</p>
     </footer>
 
     <script>
-        // Placeholder text transitions
-        const dynamicWords = ["your partner", "your best friend", "your situationship", "your crush", "your ex"];
-        let wordIndex = 0;
-        const placeholderTarget = document.getElementById('animatedPlaceholder');
-        const mainInput = document.getElementById('usernameInput');
+        // Placeholder text rotator
+        const words = ["your partner", "your best friend", "your situationship", "your crush", "your ex"];
+        let wordIdx = 0;
+        const placeholder = document.getElementById('animatedPlaceholder');
+        const inputField = document.getElementById('usernameInput');
 
-        mainInput.addEventListener('input', (e) => {
-            placeholderTarget.style.opacity = e.target.value.length > 0 ? '0' : '1';
+        inputField.addEventListener('input', (e) => {
+            placeholder.style.opacity = e.target.value.length > 0 ? '0' : '1';
         });
 
         setInterval(() => {
-            if (mainInput.value.length === 0) {
-                placeholderTarget.style.opacity = '0';
-                placeholderTarget.style.transform = 'translateY(-3px)';
+            if (inputField.value.length === 0) {
+                placeholder.style.opacity = '0';
+                placeholder.style.transform = 'translateY(-4px)';
                 setTimeout(() => {
-                    wordIndex = (wordIndex + 1) % dynamicWords.length;
-                    placeholderTarget.innerText = dynamicWords[wordIndex];
-                    placeholderTarget.style.opacity = '1';
-                    placeholderTarget.style.transform = 'translateY(0)';
+                    wordIdx = (wordIdx + 1) % words.length;
+                    placeholder.innerText = words[wordIdx];
+                    placeholder.style.opacity = '1';
+                    placeholder.style.transform = 'translateY(0)';
                 }, 200);
             }
-        }, 2500);
+        }, 2600);
 
-        // Dynamic Fluctuation for Live Counter
-        const counterEl = document.getElementById('liveCounter');
+        // Fake live visitor variation
+        const counter = document.getElementById('liveCounter');
         setInterval(() => {
-            let currentNum = parseInt(counterEl.innerText);
-            let variation = Math.floor(Math.random() * 5) - 2; // Changes between -2 and +2
-            counterEl.innerText = Math.max(100, currentNum + variation);
-        }, 3500);
+            let num = parseInt(counter.innerText);
+            let diff = Math.floor(Math.random() * 5) - 2; // -2 to +2
+            counter.innerText = Math.max(150, num + diff);
+        }, 3000);
 
-        // FAQ Toggle function
-        function toggleFaq(element) {
-            const answer = element.querySelector('.faq-answer');
-            const icon = element.querySelector('.faq-icon');
-            if(answer.classList.contains('hidden')) {
-                answer.classList.remove('hidden');
-                icon.innerText = '−';
-            } else {
-                answer.classList.add('hidden');
-                icon.innerText = '+';
-            }
-        }
-
-        // Search redirection / Locker trigger
-        function startAnalysis() {
-            const user = mainInput.value.trim();
-            if(!user) {
-                mainInput.focus();
+        // Action Trigger
+        function startProcessing() {
+            const val = inputField.value.trim();
+            if(!val) {
+                inputField.focus();
                 return;
             }
-            alert("Analysis starting for @" + user + "... Hook your content locker here!");
+            alert("Starting Anonymous Tracking for @" + val + "...");
         }
     </script>
 </body>
