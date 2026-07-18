@@ -34,18 +34,13 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-        .marquee-track {
-            display: flex;
-            width: max-content;
-            animation: marquee 40s linear infinite;
-        }
-        .marquee-track:hover {
-            animation-play-state: paused;
-        }
+        .marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center antialiased">
 
+    <!-- MODAL POPUP -->
     <div id="systemModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl border border-neutral-100 transform transition-all">
             <div class="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -59,6 +54,7 @@
         </div>
     </div>
 
+    <!-- NAVBAR -->
     <header class="w-full max-w-5xl flex justify-between items-center px-6 py-5 z-50">
         <div class="flex items-center space-x-2.5 cursor-pointer">
             <svg class="w-7 h-7 text-theIckDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -74,91 +70,152 @@
         </div>
     </header>
 
-    <main class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-6 pb-12">
-        <div class="animate-float bg-theIckDark text-white text-[10px] font-extrabold tracking-widest uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-md mb-6">
-            <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
-            </span>
-            <span>Instagram Analytics Platform</span>
-        </div>
+    <!-- MAIN INTERACTIVE WRAPPER -->
+    <main class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-6 pb-12 min-h-[500px]">
+        
+        <!-- SECTION 1: MAIN SEARCH LANDING PAGE (WHITE/PINK BLEND) -->
+        <div id="landingViewContainer" class="w-full flex flex-col items-center">
+            <div class="animate-float bg-theIckDark text-white text-[10px] font-extrabold tracking-widest uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-md mb-6">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                </span>
+                <span>Instagram Analytics Platform</span>
+            </div>
 
-        <h1 class="text-4xl md:text-5xl font-black text-theIckDark tracking-tight leading-[1.15] mb-6" id="mainTitleHeading">
-            Analyze Recent<br>Instagram Activity
-        </h1>
+            <h1 class="text-4xl md:text-5xl font-black text-theIckDark tracking-tight leading-[1.15] mb-6">
+                Analyze Recent<br>Instagram Activity
+            </h1>
 
-        <div id="searchBoxWrapper" class="w-full bg-white/30 p-2 rounded-2xl border border-white/50 shadow-xl backdrop-blur-md transition-all duration-300">
-            <div class="bg-white rounded-xl p-2 flex items-center shadow-inner relative justify-between border border-neutral-100 focus-within:ring-2 focus-within:ring-theIckHotPink/40 transition-all duration-300">
-                <div class="flex items-center flex-1 pl-3">
-                    <span class="text-neutral-400 font-bold text-lg mr-1">@</span>
-                    <div class="relative w-full h-6 overflow-hidden">
-                        <input type="text" id="usernameInput" class="absolute inset-0 w-full bg-transparent outline-none font-semibold text-neutral-800 text-base z-10" autocomplete="off">
-                        <span id="animatedPlaceholder" class="placeholder-fade absolute inset-0 text-neutral-400 font-semibold text-base flex items-center pointer-events-none">instagram username</span>
+            <div class="w-full bg-white/30 p-2 rounded-2xl border border-white/50 shadow-xl backdrop-blur-md mb-4">
+                <div class="bg-white rounded-xl p-2 flex items-center shadow-inner relative justify-between border border-neutral-100 focus-within:ring-2 focus-within:ring-theIckHotPink/40 transition-all duration-300">
+                    <div class="flex items-center flex-1 pl-3">
+                        <span class="text-neutral-400 font-bold text-lg mr-1">@</span>
+                        <div class="relative w-full h-6 overflow-hidden">
+                            <input type="text" id="usernameInput" class="absolute inset-0 w-full bg-transparent outline-none font-semibold text-neutral-800 text-base z-10" autocomplete="off">
+                            <span id="animatedPlaceholder" class="placeholder-fade absolute inset-0 text-neutral-400 font-semibold text-base flex items-center pointer-events-none">instagram username</span>
+                        </div>
                     </div>
+                    <button onclick="triggerSearchFlow()" class="bg-theIckHotPink hover:bg-theIckDark text-white font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-md transition-all duration-300">Search Now</button>
                 </div>
-                <button onclick="triggerSearch()" class="bg-theIckHotPink hover:bg-theIckDark text-white font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-md transition-all duration-300">Search Now</button>
+            </div>
+
+            <div class="flex items-center space-x-1.5 text-[11px] font-bold text-neutral-800/80 mb-8">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span>No Instagram password or authentication required.</span>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="flex -space-x-2.5 overflow-hidden">
+                    <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80">
+                    <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80">
+                    <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80">
+                    <div class="h-8 w-8 rounded-full bg-theIckDark text-white flex items-center justify-center text-[9px] font-black ring-2 ring-white">+1M</div>
+                </div>
+                <p class="text-xs font-black text-theIckDark mt-2">1M+ public profiles indexed</p>
+            </div>
+
+            <div class="mt-4 bg-white/40 border border-white/50 rounded-full px-4 py-1.5 flex items-center space-x-2 text-[11px] font-bold text-theIckDark shadow-sm">
+                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                <span><span id="liveCounter" class="font-black text-emerald-700">342</span> lookups currently processing...</span>
             </div>
         </div>
 
-        <div id="progressLayoutWrapper" class="w-full bg-white rounded-2xl p-6 border border-white/60 shadow-xl text-left hidden transform transition-all duration-300">
-            <div class="flex items-center justify-between mb-4">
-                <span class="text-xs font-black text-theIckDark uppercase tracking-wider">Analyzing Profile Logs</span>
-                <span class="text-sm font-black text-theIckHotPink" id="percentNumber">0%</span>
+        <!-- SECTION 2: SCREEN A - CLOUDFLARE LOOKUP VIEW (WHITE BACKGROUND SIMULATION) -->
+        <div id="cloudflareViewContainer" class="w-full bg-white rounded-3xl p-8 shadow-xl border border-white hidden flex flex-col items-center transition-all duration-300">
+            <!-- Initial Logo Letter Avatar -->
+            <div id="avatarLetterNode" class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center font-black text-xl text-theIckHotPink uppercase mb-4 shadow-sm">
+                M
+            </div>
+            <h2 class="text-base font-black text-neutral-800 tracking-tight mb-8" id="cfUsernameLabel">@username</h2>
+            
+            <div class="w-full max-w-xs flex justify-between items-center text-xs font-bold text-neutral-400 mb-2">
+                <span>Searching Profile</span>
+                <span id="cfProgressPercent">0%</span>
+            </div>
+            <!-- Progress Line -->
+            <div class="w-full max-w-xs bg-neutral-100 h-1.5 rounded-full overflow-hidden mb-8">
+                <div id="cfProgressBarFill" class="bg-theIckHotPink h-full w-0 transition-all duration-100 rounded-full"></div>
+            </div>
+
+            <!-- Cloudflare Box Identity -->
+            <div class="bg-neutral-50 border border-neutral-100 rounded-xl px-5 py-3 flex items-center justify-between w-full max-w-xs">
+                <div class="flex items-center space-x-2">
+                    <!-- Spinning Loader icon -->
+                    <svg id="cfSpinnerIcon" class="animate-spin h-4 w-4 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <!-- Success Check icon hidden initially -->
+                    <svg id="cfSuccessIcon" class="h-4 w-4 text-emerald-600 hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span id="cfStatusText" class="text-[11px] font-bold text-neutral-500">Verifying...</span>
+                </div>
+                <div class="text-right">
+                    <span class="block text-[9px] font-black uppercase text-orange-500 tracking-wider">CLOUDFLARE</span>
+                    <span class="block text-[7px] text-neutral-400">Privacy • Help</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: SCREEN B - THE PREMIUM STEPS CHECKLIST VIEW -->
+        <div id="profileAnalyzingContainer" class="w-full bg-white rounded-3xl p-6 shadow-xl border border-white/60 hidden flex flex-col items-center transition-all duration-300">
+            
+            <div class="w-full max-w-sm flex justify-between items-center text-xs font-black text-neutral-800 uppercase tracking-wider mb-2">
+                <span>Analyzing Follows</span>
+                <span id="analyzePercentNum" class="text-theIckHotPink">0%</span>
             </div>
             
-            <div class="w-full bg-neutral-100 h-2 rounded-full overflow-hidden mb-6">
-                <div id="progressBarFill" class="bg-theIckHotPink h-full w-0 transition-all duration-300 rounded-full"></div>
+            <!-- Global Header Line Progress -->
+            <div class="w-full max-w-sm bg-neutral-100 h-1.5 rounded-full overflow-hidden mb-5">
+                <div id="analyzeBarFill" class="bg-theIckHotPink h-full w-0 transition-all duration-100 rounded-full"></div>
             </div>
 
-            <div class="space-y-3.5" id="checklistContainer">
-                <div id="stepItem1" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
-                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
-                    <span class="log-text">Connecting to Instagram servers...</span>
+            <!-- Profile Target Circle Image layout -->
+            <div class="w-20 h-20 rounded-full p-1 border-2 border-theIckHotPink/40 mb-2 overflow-hidden shadow-inner">
+                <img id="targetProfilePic" class="w-full h-full object-cover rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80" alt="Profile">
+            </div>
+            <h3 id="analyzeUsernameLabel" class="text-sm font-black text-neutral-800 tracking-tight mb-6">@username</h3>
+
+            <!-- 5 Premium Clean White Cards Checklist -->
+            <div class="w-full max-w-sm space-y-2.5 text-left">
+                <!-- Card 1 -->
+                <div id="premiumStep1" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
+                    <span class="text-xs font-bold text-neutral-500 step-lbl">Connecting to Instagram servers...</span>
+                    <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
-                <div id="stepItem2" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
-                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
-                    <span class="log-text">Searching user profile...</span>
+                <!-- Card 2 -->
+                <div id="premiumStep2" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
+                    <span class="text-xs font-bold text-neutral-500 step-lbl">Searching user profile...</span>
+                    <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
-                <div id="stepItem3" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
-                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
-                    <span class="log-text">Fetching profile data anonymously...</span>
+                <!-- Card 3 -->
+                <div id="premiumStep3" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
+                    <span class="text-xs font-bold text-neutral-500 step-lbl">Fetching profile data anonymously...</span>
+                    <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
-                <div id="stepItem4" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
-                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
-                    <span class="log-text">Analyzing recent follows...</span>
+                <!-- Card 4 -->
+                <div id="premiumStep4" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
+                    <span class="text-xs font-bold text-neutral-500 step-lbl">Analyzing recent follows...</span>
+                    <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
-                <div id="stepItem5" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
-                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
-                    <span class="log-text">Finalizing & securing data...</span>
+                <!-- Card 5 -->
+                <div id="premiumStep5" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
+                    <span class="text-xs font-bold text-neutral-500 step-lbl">Finalizing & securing data...</span>
+                    <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
             </div>
 
-            <div id="finalActionContainer" class="mt-6 pt-4 border-t border-neutral-100 hidden">
-                <button onclick="alert('Redirecting to Content Locker / Gateway Link here!')" class="w-full bg-theIckDark hover:bg-theIckHotPink text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-md transition-all duration-300 animate-pulse">See Recent Follows</button>
+            <!-- Lock Final Action Trigger (Hidden until 100%) -->
+            <div id="lockerActionArea" class="w-full max-w-sm mt-6 hidden">
+                <button onclick="alert('Redirecting to Content Locker/Gateway Link here!')" class="w-full bg-theIckDark hover:bg-theIckHotPink text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-md transition-all duration-300 animate-pulse">Unlock Report Now</button>
             </div>
         </div>
 
-        <div class="flex items-center space-x-1.5 mt-4 text-[11px] font-bold text-neutral-800/80" id="subFeatureInfo">
-            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-            <span>No Instagram password or authentication required.</span>
-        </div>
-
-        <div class="mt-8 flex flex-col items-center">
-            <div class="flex -space-x-2.5 overflow-hidden">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80">
-                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80">
-                <div class="h-8 w-8 rounded-full bg-theIckDark text-white flex items-center justify-center text-[9px] font-black ring-2 ring-white">+1M</div>
-            </div>
-            <p class="text-xs font-black text-theIckDark mt-2">1M+ public profiles indexed</p>
-        </div>
-
-        <div class="mt-4 bg-white/40 border border-white/50 rounded-full px-4 py-1.5 flex items-center space-x-2 text-[11px] font-bold text-theIckDark shadow-sm">
-            <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-            <span><span id="liveCounter" class="font-black text-emerald-700">342</span> active pipeline lookups currently processing...</span>
-        </div>
     </main>
 
+    <!-- SECTION: STEPS FOOTPRINT -->
     <section class="w-full max-w-4xl px-6 py-12 bg-white/20 border-t border-white/30 backdrop-blur-md rounded-3xl my-6">
         <div class="text-center mb-10">
             <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— DATA RESOLUTION</span>
@@ -183,31 +240,7 @@
         </div>
     </section>
 
-    <section class="w-full max-w-3xl px-6 py-8 my-4">
-        <div class="bg-white rounded-2xl p-5 shadow-xl border border-white/60">
-            <div class="flex items-center justify-between border-b border-neutral-100 pb-3 mb-4">
-                <h3 class="text-xs font-black text-theIckDark uppercase tracking-wider flex items-center">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span> System Activity Log
-                </h3>
-                <span class="text-[10px] font-bold text-neutral-400">Live Feed</span>
-            </div>
-            <div class="space-y-3 overflow-hidden text-left" id="liveFeedContainer">
-                <div class="flex items-center justify-between text-xs py-1 border-b border-neutral-50/50">
-                    <span class="font-bold text-neutral-700">@kardashian***</span>
-                    <span class="text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Extracting</span>
-                </div>
-                <div class="flex items-center justify-between text-xs py-1 border-b border-neutral-50/50">
-                    <span class="font-bold text-neutral-700">@jake_paul**</span>
-                    <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Completed</span>
-                </div>
-                <div class="flex items-center justify-between text-xs py-1">
-                    <span class="font-bold text-neutral-700">@sarah.m***</span>
-                    <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Completed</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- AUTOMATED REVIEWS CAROUSEL CONTAINER (50+ REVIEWS) -->
     <section class="w-full overflow-hidden py-10 bg-white/10 border-y border-white/20 backdrop-blur-sm my-4">
         <div class="max-w-4xl mx-auto px-6 mb-6 text-center">
             <span class="text-xs font-black tracking-widest text-theIckDark/60 uppercase">— REAL-TIME USER FEEDBACK</span>
@@ -218,6 +251,7 @@
         </div>
     </section>
 
+    <!-- FAQS ACCORDION -->
     <section class="w-full max-w-xl px-4 py-4 mb-16 text-left">
         <h2 class="text-xl font-black text-theIckDark mb-6 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
@@ -238,11 +272,13 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="w-full bg-theIckDark text-white text-center py-12 px-6 rounded-t-[2.5rem] mt-auto">
         <span class="text-xl font-black tracking-tight text-white">insta<span class="text-theIckPink">track</span></span>
         <p class="text-[10px] text-neutral-500 mt-4 max-w-xs mx-auto leading-relaxed">© 2026 InstaTrack. All legal rights reserved. This platform operates as an independent tracking framework and maintains no commercial affiliation with Instagram or Meta Platforms Inc.</p>
     </footer>
 
+    <!-- LOGIC WORKFLOW ENGINE -->
     <script>
         function openModal() { document.getElementById('systemModal').classList.remove('hidden'); }
         function closeModal() { document.getElementById('systemModal').classList.add('hidden'); }
@@ -290,65 +326,114 @@
             }
         }
 
-        // --- STEP 2 LOGIC (DYNAMIC AUTO LOADING PROGRESS EFFECT) ---
-        function triggerSearch() {
+        // --- NEW PREMIUM TWO-SCREEN INTERACTIVE SEQUENCER ---
+        function triggerSearchFlow() {
             const usernameValue = searchInput.value.trim();
             if(!usernameValue) {
                 searchInput.focus();
                 return;
             }
 
-            // إخفاء صندوق الإدخال وإظهار شاشة التحميل (Step 2)
-            document.getElementById('searchBoxWrapper').classList.add('hidden');
-            document.getElementById('subFeatureInfo').classList.add('hidden');
+            // Clean User string representation
+            const rawUser = usernameValue.replace('@', '');
             
-            const progressLayout = document.getElementById('progressLayoutWrapper');
-            progressLayout.classList.remove('hidden');
-
-            const percentText = document.getElementById('percentNumber');
-            const fillBar = document.getElementById('progressBarFill');
+            // 1. Hide original main landing screen
+            document.getElementById('landingViewContainer').classList.add('hidden');
             
-            let count = 0;
-            const duration = 4000; // مدة التحميل الكلية (4 ثواني)
-            const intervalTime = 40; 
-            const totalSteps = duration / intervalTime;
+            // 2. Activate Screen A (Cloudflare simulation style)
+            const cfContainer = document.getElementById('cloudflareViewContainer');
+            cfContainer.classList.remove('hidden');
+            document.getElementById('cfUsernameLabel').innerText = "@" + rawUser;
+            document.getElementById('avatarLetterNode').innerText = rawUser.charAt(0);
 
-            const timer = setInterval(() => {
-                count++;
-                let percentage = Math.floor((count / totalSteps) * 100);
-                if (percentage > 100) percentage = 100;
+            let cfFill = document.getElementById('cfProgressBarFill');
+            let cfPercentText = document.getElementById('cfProgressPercent');
+            
+            let countA = 0;
+            const timerA = setInterval(() => {
+                countA += 2;
+                if (countA > 100) countA = 100;
+                cfFill.style.width = countA + "%";
+                cfPercentText.innerText = countA + "%";
 
-                percentText.innerText = percentage + "%";
-                fillBar.style.width = percentage + "%";
+                if(countA >= 100) {
+                    clearInterval(timerA);
+                    
+                    // Show success checkmark inside Cloudflare card
+                    document.getElementById('cfSpinnerIcon').classList.add('hidden');
+                    document.getElementById('cfSuccessIcon').classList.remove('hidden');
+                    document.getElementById('cfStatusText').innerText = "Success!";
+                    document.getElementById('cfStatusText').classList.remove('text-neutral-500');
+                    document.getElementById('cfStatusText').classList.add('text-emerald-600', 'font-black');
 
-                // تحديث حالة الأسطر تدريجياً بناءً على النسبة المئوية
-                if (percentage >= 15) markStepComplete('stepItem1');
-                if (percentage >= 40) markStepComplete('stepItem2');
-                if (percentage >= 65) markStepComplete('stepItem3');
-                if (percentage >= 85) markStepComplete('stepItem4');
-                if (percentage >= 98) markStepComplete('stepItem5');
-
-                if (count >= totalSteps) {
-                    clearInterval(timer);
-                    // إظهار زر السيرفر الأخير بعد انتهاء التحميل 100%
-                    document.getElementById('finalActionContainer').classList.remove('hidden');
+                    // Small delay, then transit to Screen B (Analyzing View)
+                    setTimeout(() => {
+                        cfContainer.classList.add('hidden');
+                        startAnalyzingScreenFlow(rawUser);
+                    }, 900);
                 }
-            }, intervalTime);
+            }, 50);
         }
 
-        function markStepComplete(stepId) {
-            const el = document.getElementById(stepId);
-            if (!el.classList.contains('text-emerald-700')) {
-                el.classList.remove('text-neutral-400');
-                el.classList.add('text-emerald-700');
-                const icon = el.querySelector('.status-icon');
-                icon.innerHTML = '✓';
-                icon.classList.remove('border-neutral-300');
-                icon.classList.add('border-emerald-600', 'bg-emerald-50');
+        function startAnalyzingScreenFlow(username) {
+            const analyzeContainer = document.getElementById('profileAnalyzingContainer');
+            analyzeContainer.classList.remove('hidden');
+            document.getElementById('analyzeUsernameLabel').innerText = "@" + username;
+
+            // Generate fake Unsplash profile avatar based on first letter weight to mimic reality
+            const seedId = username.charCodeAt(0) % 5;
+            const avatars = [
+                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
+                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
+                "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
+                "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80"
+            ];
+            document.getElementById('targetProfilePic').src = avatars[seedId];
+
+            let countB = 0;
+            const barFillB = document.getElementById('analyzeBarFill');
+            const percentTextB = document.getElementById('analyzePercentNum');
+
+            const timerB = setInterval(() => {
+                countB++;
+                if(countB > 100) countB = 100;
+                barFillB.style.width = countB + "%";
+                percentTextB.innerText = countB + "%";
+
+                // Trigger Premium Card states smoothly at structural checkpoints
+                if (countB >= 20) applyPremiumCardSuccess('premiumStep1');
+                if (countB >= 45) applyPremiumCardSuccess('premiumStep2');
+                if (countB >= 68) applyPremiumCardSuccess('premiumStep3');
+                if (countB >= 88) applyPremiumCardSuccess('premiumStep4');
+                if (countB >= 99) applyPremiumCardSuccess('premiumStep5');
+
+                if (countB >= 100) {
+                    clearInterval(timerB);
+                    // Open the ultimate locker trigger layout safely
+                    document.getElementById('lockerActionArea').classList.remove('hidden');
+                }
+            }, 50);
+        }
+
+        function applyPremiumCardSuccess(cardId) {
+            const card = document.getElementById(cardId);
+            if (!card.classList.contains('bg-emerald-50')) {
+                card.classList.remove('bg-neutral-50', 'border-neutral-100');
+                card.classList.add('bg-emerald-50', 'border-emerald-200');
+                
+                const label = card.querySelector('.step-lbl');
+                label.classList.remove('text-neutral-500');
+                label.classList.add('text-emerald-900', 'font-extrabold');
+
+                const circle = card.querySelector('.step-icon');
+                circle.classList.remove('bg-neutral-200/60');
+                circle.classList.add('bg-emerald-500');
+                circle.innerHTML = '✓';
             }
         }
 
-        // Reviews Array Data (50 items)
+        // Infinite Carousel Dataset
         const rawReviews = [
             {user: "alex_travels", text: "Terrific tool, accurate time metrics.", time: "2m ago"},
             {user: "emily.rose", text: "Completely anonymous as advertised. Recommended.", time: "5m ago"},
@@ -407,7 +492,7 @@
             let html = '';
             list.forEach(r => {
                 html += `
-                <div class="bg-white rounded-2xl p-5 shadow-md border border-white/60 flex flex-col justify-between w-64 shrink-0 text-left">
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 flex flex-col justify-between w-64 shrink-0 text-left">
                     <div>
                         <div class="flex items-center justify-between mb-3">
                             <div>
