@@ -3,226 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ick - Follow Tracker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        theIckPink: '#FBC5D4',
-                        theIckHotPink: '#F25C84',
-                        theIckBlack: '#0D0D0D'
-                    }
-                }
-            }
-        }
-    </script>
+    <title>The Ick - Track Their Recent Follows & Followers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            background-color: #FBC5D4;
-            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #FFAEC9 0%, #F593B3 50%, #E66B95 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #white;
+            padding: 20px;
             overflow-x: hidden;
         }
-        /* Custom Input focus layout */
-        .premium-input:focus-within {
-            box-shadow: 0 0 0 4px rgba(242, 92, 132, 0.25);
+
+        /* الهيدر العلوي */
+        header {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 30px;
         }
-        /* Continuous floating animation for the main badge */
-        @keyframes floatBadge {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+
+        .logo {
+            font-weight: 800;
+            font-size: 24px;
+            color: #333;
         }
-        .animate-badge {
-            animation: floatBadge 2.5s ease-in-out infinite;
+
+        .login-btn {
+            background-color: #000;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* حاوية المحتوى الرئيسي */
+        .main-container {
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* شارة التيك توك */
+        .tiktok-badge {
+            background-color: #000;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* العناوين الأساسية */
+        h1 {
+            color: #fff;
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* الإيموجي المفكر والمتحرك */
+        .thinking-emoji {
+            font-size: 45px;
+            margin-bottom: 25px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* صندوق البحث الذكي */
+        .search-box {
+            background-color: #fff;
+            width: 100%;
+            padding: 8px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            flex-grow: 1;
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        .instagram-icon {
+            width: 22px;
+            height: 22px;
+            margin-right: 8px;
+        }
+
+        /* الأنيميشن الخاص بالكتابة ومسح النص */
+        .dynamic-placeholder {
+            color: #777;
+            font-weight: 500;
+            border-right: 2px solid #E66B95;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #E66B95; }
+        }
+
+        .search-btn {
+            background: linear-gradient(90deg, #FF6597, #F35588);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .search-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* عبارة التأكيد السفلية */
+        .verified-text {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .checkmark {
+            background-color: #4CD964;
+            color: white;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center antialiased">
+<body>
 
-    <header class="w-full max-w-5xl flex justify-between items-center px-6 py-4">
-        <div class="flex items-center space-x-1.5 cursor-pointer">
-            <span class="text-2xl font-black text-theIckBlack tracking-tight">theick<span class="text-white">.io</span></span>
-        </div>
-        <div class="flex items-center space-x-5">
-            <a href="#" class="text-sm font-semibold text-theIckBlack/80 hover:text-theIckBlack transition">Pricing</a>
-            <button class="bg-theIckBlack text-white font-bold px-5 py-2 rounded-xl text-xs uppercase tracking-wider transition hover:bg-neutral-900">
-                Log In
-            </button>
-        </div>
+    <header>
+        <div class="logo">The Ick<span style="color: #E66B95">.io</span></div>
+        <a href="#" class="login-btn">Login</a>
     </header>
 
-    <main class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-4 pb-12">
-        
-        <div class="animate-badge bg-theIckBlack text-white text-[10px] font-black tracking-widest uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg mb-6">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span>🔥 #1 Trending App on TikTok</span>
+    <div class="main-container">
+        <div class="tiktok-badge">
+            <span style="color: #00f2fe;">🎵</span> #1 Trending App on TikTok
         </div>
 
-        <h1 class="text-4xl md:text-5xl font-black text-theIckBlack tracking-tight leading-[1.12] mb-6">
-            Track their Recent<br>Follows & Followers
-        </h1>
+        <h1>Track their Recent<br>Follows & Followers</h1>
 
-        <div class="w-full bg-white/20 p-2 rounded-2xl border border-white/40 shadow-xl backdrop-blur-sm">
-            <div class="premium-input bg-white rounded-xl p-1.5 flex items-center shadow-inner justify-between transition-all duration-200">
-                <div class="flex items-center flex-1 pl-3">
-                    <span class="text-neutral-400 font-bold text-lg mr-1">@</span>
-                    <div class="relative w-full h-6 flex items-center">
-                        <input type="text" id="usernameInput" 
-                               class="absolute inset-0 w-full bg-transparent outline-none font-semibold text-neutral-800 text-base z-10"
-                               autocomplete="off">
-                        <span id="animatedPlaceholder" class="absolute left-0 text-neutral-400 font-semibold text-base pointer-events-none transition-all duration-300">your partner</span>
-                    </div>
-                </div>
-                <button onclick="startProcessing()" class="bg-theIckHotPink hover:bg-theIckBlack text-white font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-sm transition-colors duration-300">
-                    Search Now
-                </button>
+        <div class="thinking-emoji">🤔</div>
+
+        <div class="search-box">
+            <div class="input-wrapper">
+                <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <span>@&nbsp;</span>
+                <span id="typing-text" class="dynamic-placeholder">your partner</span>
             </div>
+            <button class="search-btn">Search Now</button>
         </div>
 
-        <div class="flex items-center space-x-1.5 mt-3.5 text-[11px] font-bold text-theIckBlack/80">
-            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-            <span>Try it now. No Instagram login required.</span>
+        <div class="verified-text">
+            <span class="checkmark">✓</span> Try it now. No Instagram login required.
         </div>
-
-        <div class="mt-8 bg-white/40 border border-white/50 rounded-full px-5 py-2 flex items-center space-x-2.5 text-xs font-bold text-theIckBlack shadow-md">
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span><span id="liveCounter" class="font-black text-emerald-700">289</span> accounts are currently being searched anonymously...</span>
-        </div>
-
-    </main>
-
-    <section class="w-full bg-white/10 py-8 border-y border-white/20 backdrop-blur-sm">
-        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div>
-                <h3 class="text-2xl font-black text-theIckBlack">1,492,024</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-1">Analyzed Accounts</p>
-            </div>
-            <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-theIckBlack">112,090+</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-1">Verified Reviews</p>
-            </div>
-            <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-theIckBlack">4.9 / 5.0</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-1">Rating Average</p>
-            </div>
-            <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-theIckBlack">Real-Time</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-1">Hourly Logs</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="w-full max-w-4xl px-6 py-16">
-        <div class="text-center mb-12">
-            <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— LIVE FEEDBACK</span>
-            <h2 class="text-2xl md:text-3xl font-black text-theIckBlack mt-1.5 tracking-tight">Real Reviews from Real Users</h2>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-2xl p-6 shadow-xl border border-neutral-100 flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-600">@e</div>
-                            <div>
-                                <h4 class="text-xs font-black text-neutral-900">@emily_rose</h4>
-                                <p class="text-[9px] text-neutral-400">Verified Buyer • 2h ago</p>
-                            </div>
-                        </div>
-                        <div class="flex text-amber-400 space-x-0.5 text-xs">★ ★ ★ ★ ★</div>
-                    </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"This app is literally insane. I found out exactly who my partner followed within seconds. 100% anonymous as promised!"</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-6 shadow-xl border border-neutral-100 flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-600">@j</div>
-                            <div>
-                                <h4 class="text-xs font-black text-neutral-900">@jake.dunne</h4>
-                                <p class="text-[9px] text-neutral-400">Verified Buyer • 1 day ago</p>
-                            </div>
-                        </div>
-                        <div class="flex text-amber-400 space-x-0.5 text-xs">★ ★ ★ ★ ★</div>
-                    </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Tested it with my backup account to verify privacy. It leaves zero trace or profile views history. Perfect tracking asset."</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-6 shadow-xl border border-neutral-100 flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-600">@c</div>
-                            <div>
-                                <h4 class="text-xs font-black text-neutral-900">@chloe_clark</h4>
-                                <p class="text-[9px] text-neutral-400">Verified Buyer • 2 days ago</p>
-                            </div>
-                        </div>
-                        <div class="flex text-amber-400 space-x-0.5 text-xs">★ ★ ★ ★ ★</div>
-                    </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Saved me from so much overthinking. The chronological order feature is perfect. Best choice out there."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="w-full bg-theIckBlack text-white text-center py-12 px-6 rounded-t-[2rem] mt-auto">
-        <span class="text-xl font-black tracking-tight text-white">theick<span class="text-theIckPink">.io</span></span>
-        <p class="text-[10px] text-neutral-500 mt-4 max-w-xs mx-auto leading-relaxed">© 2026 The Ick. All rights reserved. This dashboard is an independent analytics tool and is not associated with Instagram or Meta Platforms Inc.</p>
-    </footer>
+    </div>
 
     <script>
-        // Placeholder text rotator
-        const words = ["your partner", "your best friend", "your situationship", "your crush", "your ex"];
-        let wordIdx = 0;
-        const placeholder = document.getElementById('animatedPlaceholder');
-        const inputField = document.getElementById('usernameInput');
+        const words = ["your partner", "your best friend", "that one person", "your situationship", "your crush", "your ex"];
+        let wordIndex = 0;
+        let charIndex = words[wordIndex].length;
+        let isDeleting = true;
+        const typingSpeed = 100;
+        const eraseSpeed = 50;
+        const delayBetweenWords = 2000; // مدة بقاء الكلمة ظاهرة
 
-        inputField.addEventListener('input', (e) => {
-            placeholder.style.opacity = e.target.value.length > 0 ? '0' : '1';
-        });
+        const typingElement = document.getElementById("typing-text");
 
-        setInterval(() => {
-            if (inputField.value.length === 0) {
-                placeholder.style.opacity = '0';
-                placeholder.style.transform = 'translateY(-4px)';
-                setTimeout(() => {
-                    wordIdx = (wordIdx + 1) % words.length;
-                    placeholder.innerText = words[wordIdx];
-                    placeholder.style.opacity = '1';
-                    placeholder.style.transform = 'translateY(0)';
-                }, 200);
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+
+            if (isDeleting) {
+                // مسح الحروف
+                typingElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // كتابة الحروف
+                typingElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
             }
-        }, 2600);
 
-        // Fake live visitor variation
-        const counter = document.getElementById('liveCounter');
-        setInterval(() => {
-            let num = parseInt(counter.innerText);
-            let diff = Math.floor(Math.random() * 5) - 2; // -2 to +2
-            counter.innerText = Math.max(150, num + diff);
-        }, 3000);
+            // تحديد السرعة وتغيير الحالة
+            let currentSpeed = isDeleting ? eraseSpeed : typingSpeed;
 
-        // Action Trigger
-        function startProcessing() {
-            const val = inputField.value.trim();
-            if(!val) {
-                inputField.focus();
-                return;
+            if (!isDeleting && charIndex === currentWord.length) {
+                // إذا اكتملت الكتابة، انتظر قليلاً ثم ابدأ المسح
+                currentSpeed = delayBetweenWords;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // إذا تم مسح الكلمة بالكامل، انتقل للكلمة التالية
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                currentSpeed = 300; // استراحة خفيفة قبل بدء الكلمة الجديدة
             }
-            alert("Starting Anonymous Tracking for @" + val + "...");
+
+            setTimeout(typeEffect, currentSpeed);
         }
+
+        // تشغيل الأنيميشن تلقائياً عند تحميل الصفحة
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(typeEffect, delayBetweenWords);
+        });
     </script>
 </body>
 </html>
