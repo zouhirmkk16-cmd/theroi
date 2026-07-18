@@ -21,7 +21,7 @@
                 }
             }
         }
-    </style>
+    </script>
     <style>
         body { background-color: #FCD3DE; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .placeholder-fade { transition: all 0.2s ease-in-out; }
@@ -30,7 +30,6 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; }
         .faq-answer.open { max-height: 200px; padding-top: 12px; }
         
-        /* تمليس وتدوير التعليقات اللانهائي */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -84,11 +83,11 @@
             <span>Instagram Analytics Platform</span>
         </div>
 
-        <h1 class="text-4xl md:text-5xl font-black text-theIckDark tracking-tight leading-[1.15] mb-6">
+        <h1 class="text-4xl md:text-5xl font-black text-theIckDark tracking-tight leading-[1.15] mb-6" id="mainTitleHeading">
             Analyze Recent<br>Instagram Activity
         </h1>
 
-        <div class="w-full bg-white/30 p-2 rounded-2xl border border-white/50 shadow-xl backdrop-blur-md">
+        <div id="searchBoxWrapper" class="w-full bg-white/30 p-2 rounded-2xl border border-white/50 shadow-xl backdrop-blur-md transition-all duration-300">
             <div class="bg-white rounded-xl p-2 flex items-center shadow-inner relative justify-between border border-neutral-100 focus-within:ring-2 focus-within:ring-theIckHotPink/40 transition-all duration-300">
                 <div class="flex items-center flex-1 pl-3">
                     <span class="text-neutral-400 font-bold text-lg mr-1">@</span>
@@ -101,7 +100,45 @@
             </div>
         </div>
 
-        <div class="flex items-center space-x-1.5 mt-4 text-[11px] font-bold text-neutral-800/80">
+        <div id="progressLayoutWrapper" class="w-full bg-white rounded-2xl p-6 border border-white/60 shadow-xl text-left hidden transform transition-all duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-black text-theIckDark uppercase tracking-wider">Analyzing Profile Logs</span>
+                <span class="text-sm font-black text-theIckHotPink" id="percentNumber">0%</span>
+            </div>
+            
+            <div class="w-full bg-neutral-100 h-2 rounded-full overflow-hidden mb-6">
+                <div id="progressBarFill" class="bg-theIckHotPink h-full w-0 transition-all duration-300 rounded-full"></div>
+            </div>
+
+            <div class="space-y-3.5" id="checklistContainer">
+                <div id="stepItem1" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
+                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
+                    <span class="log-text">Connecting to Instagram servers...</span>
+                </div>
+                <div id="stepItem2" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
+                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
+                    <span class="log-text">Searching user profile...</span>
+                </div>
+                <div id="stepItem3" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
+                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
+                    <span class="log-text">Fetching profile data anonymously...</span>
+                </div>
+                <div id="stepItem4" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
+                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
+                    <span class="log-text">Analyzing recent follows...</span>
+                </div>
+                <div id="stepItem5" class="flex items-center space-x-2.5 text-xs font-bold text-neutral-400 transition-colors">
+                    <span class="status-icon shrink-0 w-4 h-4 rounded-full border border-neutral-300 flex items-center justify-center font-black text-[9px]"></span>
+                    <span class="log-text">Finalizing & securing data...</span>
+                </div>
+            </div>
+
+            <div id="finalActionContainer" class="mt-6 pt-4 border-t border-neutral-100 hidden">
+                <button onclick="alert('Redirecting to Content Locker / Gateway Link here!')" class="w-full bg-theIckDark hover:bg-theIckHotPink text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-md transition-all duration-300 animate-pulse">See Recent Follows</button>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-1.5 mt-4 text-[11px] font-bold text-neutral-800/80" id="subFeatureInfo">
             <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
             <span>No Instagram password or authentication required.</span>
         </div>
@@ -176,10 +213,8 @@
             <span class="text-xs font-black tracking-widest text-theIckDark/60 uppercase">— REAL-TIME USER FEEDBACK</span>
             <h2 class="text-xl font-black text-theIckDark mt-1">Global Verification Index</h2>
         </div>
-        
         <div class="w-full overflow-hidden relative">
-            <div class="marquee-track space-x-6 px-4" id="marqueeTrack">
-                </div>
+            <div class="marquee-track space-x-6 px-4" id="marqueeTrack"></div>
         </div>
     </section>
 
@@ -209,7 +244,6 @@
     </footer>
 
     <script>
-        // Modal Control
         function openModal() { document.getElementById('systemModal').classList.remove('hidden'); }
         function closeModal() { document.getElementById('systemModal').classList.add('hidden'); }
 
@@ -256,16 +290,65 @@
             }
         }
 
+        // --- STEP 2 LOGIC (DYNAMIC AUTO LOADING PROGRESS EFFECT) ---
         function triggerSearch() {
             const usernameValue = searchInput.value.trim();
             if(!usernameValue) {
                 searchInput.focus();
                 return;
             }
-            alert("Analysis starting for @" + usernameValue + "... Link your gateway/locker here!");
+
+            // إخفاء صندوق الإدخال وإظهار شاشة التحميل (Step 2)
+            document.getElementById('searchBoxWrapper').classList.add('hidden');
+            document.getElementById('subFeatureInfo').classList.add('hidden');
+            
+            const progressLayout = document.getElementById('progressLayoutWrapper');
+            progressLayout.classList.remove('hidden');
+
+            const percentText = document.getElementById('percentNumber');
+            const fillBar = document.getElementById('progressBarFill');
+            
+            let count = 0;
+            const duration = 4000; // مدة التحميل الكلية (4 ثواني)
+            const intervalTime = 40; 
+            const totalSteps = duration / intervalTime;
+
+            const timer = setInterval(() => {
+                count++;
+                let percentage = Math.floor((count / totalSteps) * 100);
+                if (percentage > 100) percentage = 100;
+
+                percentText.innerText = percentage + "%";
+                fillBar.style.width = percentage + "%";
+
+                // تحديث حالة الأسطر تدريجياً بناءً على النسبة المئوية
+                if (percentage >= 15) markStepComplete('stepItem1');
+                if (percentage >= 40) markStepComplete('stepItem2');
+                if (percentage >= 65) markStepComplete('stepItem3');
+                if (percentage >= 85) markStepComplete('stepItem4');
+                if (percentage >= 98) markStepComplete('stepItem5');
+
+                if (count >= totalSteps) {
+                    clearInterval(timer);
+                    // إظهار زر السيرفر الأخير بعد انتهاء التحميل 100%
+                    document.getElementById('finalActionContainer').classList.remove('hidden');
+                }
+            }, intervalTime);
         }
 
-        // مصفوفة ضخمة تضم 50 تعليق احترافي ومتنوع لربح الثقة
+        function markStepComplete(stepId) {
+            const el = document.getElementById(stepId);
+            if (!el.classList.contains('text-emerald-700')) {
+                el.classList.remove('text-neutral-400');
+                el.classList.add('text-emerald-700');
+                const icon = el.querySelector('.status-icon');
+                icon.innerHTML = '✓';
+                icon.classList.remove('border-neutral-300');
+                icon.classList.add('border-emerald-600', 'bg-emerald-50');
+            }
+        }
+
+        // Reviews Array Data (50 items)
         const rawReviews = [
             {user: "alex_travels", text: "Terrific tool, accurate time metrics.", time: "2m ago"},
             {user: "emily.rose", text: "Completely anonymous as advertised. Recommended.", time: "5m ago"},
@@ -320,8 +403,6 @@
         ];
 
         const track = document.getElementById('marqueeTrack');
-        
-        // بناء التعليقات ومضاعفتها لإنشاء حركة دائرية لانهائية بلا نهاية
         function buildReviews(list) {
             let html = '';
             list.forEach(r => {
@@ -341,8 +422,6 @@
             });
             return html;
         }
-
-        // مضاعفة المصفوفة باش تعطي الدوران اللانهائي (Infinite loop effect)
         track.innerHTML = buildReviews(rawReviews) + buildReviews(rawReviews);
     </script>
 </body>
