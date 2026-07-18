@@ -6,7 +6,7 @@
     <title>InstaTrack - Instagram Follows & Profile Analytics</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -34,7 +34,8 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-        .marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+        /* تقال السرعة هنا لـ 120 ثانية باش يبان داكشي حقيقي ومقروء */
+        .marquee-track { display: flex; width: max-content; animation: marquee 120s linear infinite; }
         .marquee-track:hover { animation-play-state: paused; }
     </style>
 </head>
@@ -73,7 +74,7 @@
     <!-- MAIN INTERACTIVE WRAPPER -->
     <main class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-6 pb-12 min-h-[500px]">
         
-        <!-- SECTION 1: MAIN SEARCH LANDING PAGE (WHITE/PINK BLEND) -->
+        <!-- SECTION 1: MAIN SEARCH LANDING PAGE -->
         <div id="landingViewContainer" class="w-full flex flex-col items-center">
             <div class="animate-float bg-theIckDark text-white text-[10px] font-extrabold tracking-widest uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-md mb-6">
                 <span class="flex h-2 w-2 relative">
@@ -121,9 +122,8 @@
             </div>
         </div>
 
-        <!-- SECTION 2: SCREEN A - CLOUDFLARE LOOKUP VIEW (WHITE BACKGROUND SIMULATION) -->
+        <!-- SECTION 2: SCREEN A - CLOUDFLARE LOOKUP VIEW -->
         <div id="cloudflareViewContainer" class="w-full bg-white rounded-3xl p-8 shadow-xl border border-white hidden flex flex-col items-center transition-all duration-300">
-            <!-- Initial Logo Letter Avatar -->
             <div id="avatarLetterNode" class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center font-black text-xl text-theIckHotPink uppercase mb-4 shadow-sm">
                 M
             </div>
@@ -133,20 +133,16 @@
                 <span>Searching Profile</span>
                 <span id="cfProgressPercent">0%</span>
             </div>
-            <!-- Progress Line -->
             <div class="w-full max-w-xs bg-neutral-100 h-1.5 rounded-full overflow-hidden mb-8">
                 <div id="cfProgressBarFill" class="bg-theIckHotPink h-full w-0 transition-all duration-100 rounded-full"></div>
             </div>
 
-            <!-- Cloudflare Box Identity -->
             <div class="bg-neutral-50 border border-neutral-100 rounded-xl px-5 py-3 flex items-center justify-between w-full max-w-xs">
                 <div class="flex items-center space-x-2">
-                    <!-- Spinning Loader icon -->
                     <svg id="cfSpinnerIcon" class="animate-spin h-4 w-4 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    <!-- Success Check icon hidden initially -->
                     <svg id="cfSuccessIcon" class="h-4 w-4 text-emerald-600 hidden" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                     </svg>
@@ -167,47 +163,41 @@
                 <span id="analyzePercentNum" class="text-theIckHotPink">0%</span>
             </div>
             
-            <!-- Global Header Line Progress -->
             <div class="w-full max-w-sm bg-neutral-100 h-1.5 rounded-full overflow-hidden mb-5">
                 <div id="analyzeBarFill" class="bg-theIckHotPink h-full w-0 transition-all duration-100 rounded-full"></div>
             </div>
 
-            <!-- Profile Target Circle Image layout -->
-            <div class="w-20 h-20 rounded-full p-1 border-2 border-theIckHotPink/40 mb-2 overflow-hidden shadow-inner">
-                <img id="targetProfilePic" class="w-full h-full object-cover rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80" alt="Profile">
+            <!-- Profile Target Circle Image layout with Blur Effect -->
+            <div class="w-20 h-20 rounded-full p-1 border-2 border-theIckHotPink/40 mb-2 overflow-hidden shadow-inner bg-neutral-100">
+                <img id="targetProfilePic" class="w-full h-full object-cover rounded-full blur-md select-none pointer-events-none transform scale-110" src="" alt="Locked Profile View">
             </div>
             <h3 id="analyzeUsernameLabel" class="text-sm font-black text-neutral-800 tracking-tight mb-6">@username</h3>
 
             <!-- 5 Premium Clean White Cards Checklist -->
             <div class="w-full max-w-sm space-y-2.5 text-left">
-                <!-- Card 1 -->
                 <div id="premiumStep1" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
                     <span class="text-xs font-bold text-neutral-500 step-lbl">Connecting to Instagram servers...</span>
                     <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
-                <!-- Card 2 -->
                 <div id="premiumStep2" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
                     <span class="text-xs font-bold text-neutral-500 step-lbl">Searching user profile...</span>
                     <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
-                <!-- Card 3 -->
                 <div id="premiumStep3" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
                     <span class="text-xs font-bold text-neutral-500 step-lbl">Fetching profile data anonymously...</span>
                     <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
-                <!-- Card 4 -->
                 <div id="premiumStep4" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
                     <span class="text-xs font-bold text-neutral-500 step-lbl">Analyzing recent follows...</span>
                     <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
-                <!-- Card 5 -->
                 <div id="premiumStep5" class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 flex items-center justify-between transition-all duration-300">
                     <span class="text-xs font-bold text-neutral-500 step-lbl">Finalizing & securing data...</span>
                     <div class="step-icon w-5 h-5 rounded-full bg-neutral-200/60 flex items-center justify-center font-black text-[10px] text-white"></div>
                 </div>
             </div>
 
-            <!-- Lock Final Action Trigger (Hidden until 100%) -->
+            <!-- Lock Final Action Trigger -->
             <div id="lockerActionArea" class="w-full max-w-sm mt-6 hidden">
                 <button onclick="alert('Redirecting to Content Locker/Gateway Link here!')" class="w-full bg-theIckDark hover:bg-theIckHotPink text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-md transition-all duration-300 animate-pulse">Unlock Report Now</button>
             </div>
@@ -334,7 +324,6 @@
                 return;
             }
 
-            // Clean User string representation
             const rawUser = usernameValue.replace('@', '');
             
             // 1. Hide original main landing screen
@@ -359,14 +348,12 @@
                 if(countA >= 100) {
                     clearInterval(timerA);
                     
-                    // Show success checkmark inside Cloudflare card
                     document.getElementById('cfSpinnerIcon').classList.add('hidden');
                     document.getElementById('cfSuccessIcon').classList.remove('hidden');
                     document.getElementById('cfStatusText').innerText = "Success!";
                     document.getElementById('cfStatusText').classList.remove('text-neutral-500');
                     document.getElementById('cfStatusText').classList.add('text-emerald-600', 'font-black');
 
-                    // Small delay, then transit to Screen B (Analyzing View)
                     setTimeout(() => {
                         cfContainer.classList.add('hidden');
                         startAnalyzingScreenFlow(rawUser);
@@ -380,16 +367,21 @@
             analyzeContainer.classList.remove('hidden');
             document.getElementById('analyzeUsernameLabel').innerText = "@" + username;
 
-            // Generate fake Unsplash profile avatar based on first letter weight to mimic reality
-            const seedId = username.charCodeAt(0) % 5;
-            const avatars = [
+            // قائمة كبيرة ومتنوعة من بروفايلات Unsplash (رجال ونساء) لتغيير الصورة عشوائياً في كل عملية بحث
+            const blurredAvatarsPool = [
                 "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80",
                 "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
                 "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
                 "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&q=80",
-                "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80"
+                "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&q=80",
+                "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&q=80",
+                "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=150&q=80",
+                "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80"
             ];
-            document.getElementById('targetProfilePic').src = avatars[seedId];
+            
+            // اختيار عشوائي كامل من الـ Pool
+            const randomIndex = Math.floor(Math.random() * blurredAvatarsPool.length);
+            document.getElementById('targetProfilePic').src = blurredAvatarsPool[randomIndex];
 
             let countB = 0;
             const barFillB = document.getElementById('analyzeBarFill');
@@ -401,7 +393,6 @@
                 barFillB.style.width = countB + "%";
                 percentTextB.innerText = countB + "%";
 
-                // Trigger Premium Card states smoothly at structural checkpoints
                 if (countB >= 20) applyPremiumCardSuccess('premiumStep1');
                 if (countB >= 45) applyPremiumCardSuccess('premiumStep2');
                 if (countB >= 68) applyPremiumCardSuccess('premiumStep3');
@@ -410,10 +401,9 @@
 
                 if (countB >= 100) {
                     clearInterval(timerB);
-                    // Open the ultimate locker trigger layout safely
                     document.getElementById('lockerActionArea').classList.remove('hidden');
                 }
-            }, 50);
+            }, 60); // إبطاء خفيف جداً متناسق مع سرعة الخطوات لإعطاء طابع حقيقي للـ Scrape
         }
 
         function applyPremiumCardSuccess(cardId) {
