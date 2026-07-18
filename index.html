@@ -30,11 +30,9 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
-        /* أنيميشن احترافي لسلسلة الكلمات داخل الـ Input */
         .placeholder-fade {
             transition: all 0.2s ease-in-out;
         }
-        /* حركة التموج الخفيفة للشارة */
         @keyframes floatEffect {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-5px); }
@@ -43,7 +41,6 @@
         .animate-float {
             animation: floatEffect 3s ease-in-out infinite;
         }
-        /* إخفاء الـ Accordion بسلاسة */
         .faq-answer {
             max-height: 0;
             overflow: hidden;
@@ -128,33 +125,67 @@
 
     </main>
 
-    <section class="w-full bg-white/10 py-8 border-y border-white/20 backdrop-blur-sm">
-        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div>
-                <h3 class="text-2xl font-black text-theIckDark tracking-tight">1,249,042</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">Profiles Tracked</p>
+    <section class="w-full max-w-4xl px-6 py-12 bg-white/20 border-y border-white/30 backdrop-blur-md rounded-3xl my-8">
+        <div class="text-center mb-10">
+            <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— HOW IT WORKS</span>
+            <h2 class="text-2xl md:text-3xl font-black text-theIckDark mt-1.5 tracking-tight">Track Any Account In 3 Steps</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="flex flex-col items-center text-center p-4">
+                <div class="w-12 h-12 bg-theIckDark text-white font-black rounded-2xl flex items-center justify-center text-lg mb-4 shadow-md">1</div>
+                <h3 class="font-black text-base text-theIckDark mb-2">Enter Username</h3>
+                <p class="text-xs text-neutral-700 font-medium leading-relaxed">Type the Instagram handle of the account you want to inspect. No login required.</p>
+                <div class="mt-4 w-full aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-inner relative group cursor-pointer border border-white/20">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=300&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-10 h-10 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/40">▶</div>
+                    </div>
+                </div>
             </div>
-            <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-theIckDark tracking-tight">110,480+</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">5-Star Reviews</p>
+
+            <div class="flex flex-col items-center text-center p-4">
+                <div class="w-12 h-12 bg-theIckDark text-white font-black rounded-2xl flex items-center justify-center text-lg mb-4 shadow-md">2</div>
+                <h3 class="font-black text-base text-theIckDark mb-2">Secure Extraction</h3>
+                <p class="text-xs text-neutral-700 font-medium leading-relaxed">Our system anonymously queries the servers without leaving a trace or view history.</p>
+                <div class="mt-4 w-full aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-inner relative group cursor-pointer border border-white/20">
+                    <img src="https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=300&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-10 h-10 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/40">▶</div>
+                    </div>
+                </div>
             </div>
-            <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-theIckDark tracking-tight">4.9 / 5.0</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">Satisfaction Rate</p>
-            </div>
-            <div class="border-l border-white/20">
-                <h3 class="text-2xl font-black text-theIckDark tracking-tight">Every 1h</h3>
-                <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mt-0.5">System Updates</p>
+
+            <div class="flex flex-col items-center text-center p-4">
+                <div class="w-12 h-12 bg-theIckDark text-white font-black rounded-2xl flex items-center justify-center text-lg mb-4 shadow-md">3</div>
+                <h3 class="font-black text-base text-theIckDark mb-2">View Analytics</h3>
+                <p class="text-xs text-neutral-700 font-medium leading-relaxed">Get a perfectly sorted list of their latest follows and follower additions instantly.</p>
+                <div class="mt-4 w-full aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden shadow-inner relative group cursor-pointer border border-white/20">
+                    <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=300&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-10 h-10 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/40">▶</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="w-full max-w-4xl px-6 py-16">
-        <div class="text-center mb-12">
-            <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— FEEDBACK</span>
-            <h2 class="text-2xl md:text-3xl font-black text-theIckDark mt-1.5 tracking-tight">Loved by over 100,000+ users</h2>
+    <section class="w-full max-w-4xl px-6 py-6 text-center">
+        <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/50 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-left">
+                <h3 class="text-lg font-black text-theIckDark">Total Platform Rating</h3>
+                <p class="text-xs text-neutral-500 font-medium">Based on over 110,480 verified user submissions.</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end">
+                <div class="flex text-amber-400 space-x-1 text-2xl">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <span class="text-sm font-black text-theIckDark mt-1">4.9 / 5.0 Global Score</span>
+            </div>
         </div>
+    </section>
 
+    <section class="w-full max-w-4xl px-6 py-12">
         <div class="grid md:grid-cols-3 gap-6">
             <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between transition hover:scale-[1.02] duration-300">
                 <div>
@@ -212,7 +243,7 @@
         </div>
     </section>
 
-    <section class="w-full max-w-xl px-4 py-8 mb-16 text-left">
+    <section class="w-full max-w-xl px-4 py-4 mb-16 text-left">
         <h2 class="text-xl font-black text-theIckDark mb-6 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             
@@ -245,7 +276,6 @@
     </footer>
 
     <script>
-        // دالة تدوير النصوص التلقائية داخل خانة الإدخال بدقة
         const rotationWords = ["your partner", "your best friend", "your situationship", "your crush", "your ex"];
         let currentWordIdx = 0;
         const targetPlaceholder = document.getElementById('animatedPlaceholder');
@@ -268,15 +298,13 @@
             }
         }, 2500);
 
-        // التحكم في عداد المستخدمين المباشر لجعل الحركة واقعية
         const liveCounterEl = document.getElementById('liveCounter');
         setInterval(() => {
             let num = parseInt(liveCounterEl.innerText);
-            let change = Math.floor(Math.random() * 5) - 2; // قيم عشوائية بين -2 و +2
+            let change = Math.floor(Math.random() * 5) - 2;
             liveCounterEl.innerText = Math.max(200, num + change);
         }, 3000);
 
-        // دالة التحكم في فتح وغلق الأسئلة الشائعة بسلاسة
         function toggleAccordion(element) {
             const answer = element.querySelector('.faq-answer');
             const icon = element.querySelector('.faq-icon');
@@ -285,7 +313,6 @@
                 answer.classList.remove('open');
                 icon.innerText = '+';
             } else {
-                // غلق أي سؤال مفتوح أولاً
                 document.querySelectorAll('.faq-answer').forEach(el => el.classList.remove('open'));
                 document.querySelectorAll('.faq-icon').forEach(el => el.innerText = '+');
                 
@@ -294,14 +321,13 @@
             }
         }
 
-        // دالة الضغط على زر البحث وبداية التحليل
         function triggerSearch() {
             const usernameValue = searchInput.value.trim();
             if(!usernameValue) {
                 searchInput.focus();
                 return;
             }
-            alert("Analysis starting for @" + usernameValue + "... Link your gateway/locker here!");
+            alert("Analysis starting for @" + usernameValue + "... Hook your content locker here!");
         }
     </script>
 </body>
