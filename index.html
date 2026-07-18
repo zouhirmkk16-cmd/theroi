@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ick - Tracker Clone</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #fce7f3; /* Light pink background like the original */
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4 font-sans text-gray-800">
+
+    <!-- STEP 1: Search Form -->
+    <div id="search-step" class="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl text-center space-y-6">
+        <div class="flex items-center justify-center space-x-2">
+            <span class="text-3xl">🤢</span>
+            <h1 class="text-2xl font-black">The Ick<span class="text-pink-500">.io</span></h1>
+        </div>
+        <p class="text-xl font-bold text-gray-700">Track their Recent Follows & Followers</p>
+        
+        <div class="space-y-3">
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">@</span>
+                <input id="username-input" type="text" placeholder="your partner" class="w-full pl-8 pr-4 py-3 border border-pink-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-400 text-lg">
+            </div>
+            <button onclick="startAnalysis()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 shadow-md">
+                Search Now
+            </button>
+        </div>
+        <p class="text-xs text-green-600 font-semibold">✓ Try it now. No Instagram login required.</p>
+    </div>
+
+    <!-- STEP 2: Loading & Progress (Hidden by default) -->
+    <div id="loading-step" class="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl text-center space-y-6 hidden">
+        <h2 class="text-2xl font-black text-gray-800">Analyzing Follows</h2>
+        <p id="target-username" class="text-gray-500 font-semibold text-lg">@username</p>
+        
+        <!-- Profile Placeholder -->
+        <div class="w-28 h-28 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-full mx-auto p-1 shadow-lg">
+            <div class="w-full h-full bg-gray-200 rounded-full flex items-center justify-center text-3xl">👤</div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="space-y-1">
+            <div class="flex justify-between text-sm font-bold text-gray-600">
+                <span>Progress</span>
+                <span id="progress-text">0%</span>
+            </div>
+            <div class="w-full bg-gray-100 h-4 rounded-full overflow-hidden border border-gray-200">
+                <div id="progress-bar" class="bg-pink-500 h-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Dynamic Status Messages -->
+        <div class="space-y-3 text-left">
+            <div id="status-1" class="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <span class="text-xl">🌐</span>
+                <p class="text-sm font-medium text-gray-600">Connecting to Instagram servers...</p>
+            </div>
+            <div id="status-2" class="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl border border-gray-100 opacity-40">
+                <span class="text-xl">🔍</span>
+                <p class="text-sm font-medium text-gray-600">Searching user profile...</p>
+            </div>
+            <div id="status-3" class="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl border border-gray-100 opacity-40">
+                <span class="text-xl">🔒</span>
+                <p class="text-sm font-medium text-gray-600">Fetching profile data anonymously...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 3: Paywall / Results (Hidden by default) -->
+    <div id="paywall-step" class="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl text-center space-y-6 hidden">
+        <h2 class="text-2xl font-black text-gray-800">Unlock The Ick</h2>
+        
+        <div class="space-y-3 text-left bg-pink-50 p-4 rounded-2xl border border-pink-100">
+            <div class="flex items-start space-x-2">
+                <span class="text-green-500">✓</span>
+                <p class="text-sm font-semibold text-gray-700">100% private & secure (No login required)</p>
+            </div>
+            <div class="flex items-start space-x-2">
+                <span class="text-green-500">✓</span>
+                <p class="text-sm font-semibold text-gray-700">View recent follows f l-blasa sorted by date</p>
+            </div>
+            <div class="flex items-start space-x-2">
+                <span class="text-green-500">✓</span>
+                <p class="text-sm font-semibold text-gray-700">Get notified of every single change</p>
+            </div>
+        </div>
+
+        <!-- Pricing Card -->
+        <div class="border-2 border-pink-500 rounded-2xl p-4 relative bg-pink-50/50">
+            <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-pink-500 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</span>
+            <div class="flex justify-between items-center mt-2">
+                <div class="text-left">
+                    <p class="font-black text-xl text-gray-800">Yearly</p>
+                    <p class="text-xs text-gray-500">12mo - $9.99</p>
+                </div>
+                <div class="text-right">
+                    <p class="font-black text-2xl text-pink-500">$0.19<span class="text-sm font-normal text-gray-500">/wk</span></p>
+                    <p class="text-xs text-green-600 font-bold">Save 96%</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="w-full bg-gray-900 hover:bg-black text-white font-black py-4 px-6 rounded-full text-lg transition duration-300 shadow-lg">
+            Start Tracking Now
+        </button>
+        <p class="text-xs text-gray-400">🛡 Cancel anytime, no commitments.</p>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function startAnalysis() {
+            const username = document.getElementById('username-input').value.trim();
+            if (!username) {
+                alert('Please enter a username first!');
+                return;
+            }
+
+            // Switch to Loading Step
+            document.getElementById('search-step').classList.add('hidden');
+            document.getElementById('loading-step').classList.remove('hidden');
+            document.getElementById('target-username').innerText = '@' + username;
+
+            let progress = 0;
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            
+            const status1 = document.getElementById('status-1');
+            const status2 = document.getElementById('status-2');
+            const status3 = document.getElementById('status-3');
+
+            // Simulating progress steps
+            const interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+                progressText.innerText = progress + '%';
+
+                // Light up status bars based on progress
+                if (progress >= 35) {
+                    status1.classList.add('bg-green-50', 'border-green-200');
+                    status2.classList.remove('opacity-40');
+                }
+                if (progress >= 70) {
+                    status2.classList.add('bg-green-50', 'border-green-200');
+                    status3.classList.remove('opacity-40');
+                }
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    // Show final paywall step
+                    setTimeout(() => {
+                        document.getElementById('loading-step').classList.add('hidden');
+                        document.getElementById('paywall-step').classList.remove('hidden');
+                    }, 500);
+                }
+            }, 50); // Speed of loading (50ms per 1%)
+        }
+    </script>
+</body>
+</html>
