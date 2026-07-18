@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ick - Track Instagram Follows & Followers</title>
+    <title>InstaTrack - Instagram Follows & Profile Analytics</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -35,9 +35,14 @@
 
     <!-- NAVBAR -->
     <header class="w-full max-w-5xl flex justify-between items-center px-6 py-5 z-50">
-        <div class="flex items-center space-x-2 cursor-pointer">
-            <div class="w-9 h-9 bg-theIckDark rounded-xl flex items-center justify-center font-black text-xl text-white">i</div>
-            <span class="text-xl font-black tracking-tight text-theIckDark">theick<span class="text-white">.io</span></span>
+        <div class="flex items-center space-x-2.5 cursor-pointer">
+            <!-- INSTAGRAM OFFICIAL SVG LOGO -->
+            <svg class="w-7 h-7 text-theIckDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span class="text-xl font-black tracking-tight text-theIckDark">insta<span class="text-white">track</span></span>
         </div>
         <div class="flex items-center space-x-6">
             <a href="#" class="text-sm font-bold text-theIckDark/80 hover:text-theIckDark transition">Pricing</a>
@@ -52,11 +57,12 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
             </span>
-            <span>Trending Analytics Platform</span>
+            <span>Instagram Analytics Platform</span>
         </div>
 
+        <!-- NEW INSTAGRAM INSPIRED HEADLINE -->
         <h1 class="text-4xl md:text-5xl font-black text-theIckDark tracking-tight leading-[1.15] mb-6">
-            Track Recent<br>Follows & Followers
+            Analyze Recent<br>Instagram Activity
         </h1>
 
         <!-- INPUT BOX -->
@@ -66,7 +72,7 @@
                     <span class="text-neutral-400 font-bold text-lg mr-1">@</span>
                     <div class="relative w-full h-6 overflow-hidden">
                         <input type="text" id="usernameInput" class="absolute inset-0 w-full bg-transparent outline-none font-semibold text-neutral-800 text-base z-10" autocomplete="off">
-                        <span id="animatedPlaceholder" class="placeholder-fade absolute inset-0 text-neutral-400 font-semibold text-base flex items-center pointer-events-none">target username</span>
+                        <span id="animatedPlaceholder" class="placeholder-fade absolute inset-0 text-neutral-400 font-semibold text-base flex items-center pointer-events-none">instagram username</span>
                     </div>
                 </div>
                 <button onclick="triggerSearch()" class="bg-theIckHotPink hover:bg-theIckDark text-white font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-md transition-all duration-300">Search Now</button>
@@ -75,7 +81,7 @@
 
         <div class="flex items-center space-x-1.5 mt-4 text-[11px] font-bold text-neutral-800/80">
             <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-            <span>No account authentication required.</span>
+            <span>No Instagram password or authentication required.</span>
         </div>
 
         <!-- TRUST METRICS -->
@@ -86,36 +92,36 @@
                 <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80">
                 <div class="h-8 w-8 rounded-full bg-theIckDark text-white flex items-center justify-center text-[9px] font-black ring-2 ring-white">+1M</div>
             </div>
-            <p class="text-xs font-black text-theIckDark mt-2">1M+ profiles analyzed</p>
+            <p class="text-xs font-black text-theIckDark mt-2">1M+ public profiles indexed</p>
         </div>
 
         <div class="mt-4 bg-white/40 border border-white/50 rounded-full px-4 py-1.5 flex items-center space-x-2 text-[11px] font-bold text-theIckDark shadow-sm">
             <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-            <span><span id="liveCounter" class="font-black text-emerald-700">342</span> active queries currently processing...</span>
+            <span><span id="liveCounter" class="font-black text-emerald-700">342</span> active pipeline lookups currently processing...</span>
         </div>
     </main>
 
     <!-- SECTION: STEPS -->
     <section class="w-full max-w-4xl px-6 py-12 bg-white/20 border-t border-white/30 backdrop-blur-md rounded-3xl my-6">
         <div class="text-center mb-10">
-            <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— PROCESS FLOW</span>
+            <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— DATA RESOLUTION</span>
             <h2 class="text-2xl md:text-3xl font-black text-theIckDark mt-1.5 tracking-tight">Three Step Profile Verification</h2>
         </div>
         <div class="grid md:grid-cols-3 gap-6">
             <div class="bg-white/80 border border-white/40 p-6 rounded-2xl shadow-sm text-center">
                 <div class="w-10 h-10 bg-theIckDark text-white font-black rounded-xl flex items-center justify-center mx-auto mb-4">01</div>
-                <h3 class="font-black text-sm text-theIckDark mb-2">Specify Target</h3>
-                <p class="text-[11px] text-neutral-600 font-medium leading-relaxed">Enter the public identification handle directly into our secure verification engine.</p>
+                <h3 class="font-black text-sm text-theIckDark mb-2">Input Target Handle</h3>
+                <p class="text-[11px] text-neutral-600 font-medium leading-relaxed">Enter the specific Instagram account handle safely into our cloud query layout.</p>
             </div>
             <div class="bg-white/80 border border-white/40 p-6 rounded-2xl shadow-sm text-center">
                 <div class="w-10 h-10 bg-theIckDark text-white font-black rounded-xl flex items-center justify-center mx-auto mb-4">02</div>
-                <h3 class="font-black text-sm text-theIckDark mb-2">Secure Sync</h3>
-                <p class="text-[11px] text-neutral-600 font-medium leading-relaxed">Our remote API infrastructure aggregates data blocks without credential requests.</p>
+                <h3 class="font-black text-sm text-theIckDark mb-2">Structure Lookup</h3>
+                <p class="text-[11px] text-neutral-600 font-medium leading-relaxed">Our system safely processes open data parameters through enterprise proxy grids.</p>
             </div>
             <div class="bg-white/80 border border-white/40 p-6 rounded-2xl shadow-sm text-center">
                 <div class="w-10 h-10 bg-theIckDark text-white font-black rounded-xl flex items-center justify-center mx-auto mb-4">03</div>
-                <h3 class="font-black text-sm text-theIckDark mb-2">Generate Report</h3>
-                <p class="text-[11px] text-neutral-600 font-medium leading-relaxed">Access structural analytics sorted chronological by latest active follow updates.</p>
+                <h3 class="font-black text-sm text-theIckDark mb-2">Fetch Recent Logs</h3>
+                <p class="text-[11px] text-neutral-600 font-medium leading-relaxed">Access the final sorted chronological map displaying recent activity changes.</p>
             </div>
         </div>
     </section>
@@ -150,21 +156,21 @@
     <section class="w-full max-w-4xl px-6 py-12">
         <div class="text-center mb-10">
             <span class="text-xs font-black tracking-widest text-theIckDark/60 uppercase">— INFRASTRUCTURE</span>
-            <h2 class="text-xl md:text-2xl font-black text-theIckDark mt-1">Enterprise Grade Security Protocols</h2>
+            <h2 class="text-xl md:text-2xl font-black text-theIckDark mt-1">Enterprise Grade Instagram Proxies</h2>
         </div>
         <div class="grid md:grid-cols-2 gap-6 text-left">
             <div class="bg-white/50 p-5 rounded-xl border border-white/40 flex items-start space-x-3">
                 <div class="w-5 h-5 mt-0.5 bg-theIckDark rounded-md flex items-center justify-center text-[10px] text-white font-bold">S</div>
                 <div>
-                    <h4 class="font-black text-xs text-theIckDark mb-1">Encrypted Packet Routing</h4>
-                    <p class="text-[11px] text-neutral-600 font-medium">All database lookups utilize dedicated network routes to maintain strict confidentiality metrics.</p>
+                    <h4 class="font-black text-xs text-theIckDark mb-1">Confidential Node Architecture</h4>
+                    <p class="text-[11px] text-neutral-600 font-medium">All structural database queries run strictly cloud-side, generating no logs on destination profiles.</p>
                 </div>
             </div>
             <div class="bg-white/50 p-5 rounded-xl border border-white/40 flex items-start space-x-3">
                 <div class="w-5 h-5 mt-0.5 bg-theIckDark rounded-md flex items-center justify-center text-[10px] text-white font-bold">P</div>
                 <div>
-                    <h4 class="font-black text-xs text-theIckDark mb-1">Optimized Execution Nodes</h4>
-                    <p class="text-[11px] text-neutral-600 font-medium">Server clusters prioritize background lookups to finalize chronological tracking maps swiftly.</p>
+                    <h4 class="font-black text-xs text-theIckDark mb-1">Real-Time Sync Infrastructure</h4>
+                    <p class="text-[11px] text-neutral-600 font-medium">Data formatting algorithms update layout statistics immediately once data streams clear.</p>
                 </div>
             </div>
         </div>
@@ -175,11 +181,11 @@
         <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/50 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="text-left">
                 <h3 class="text-lg font-black text-theIckDark">Verified Satisfaction Index</h3>
-                <p class="text-xs text-neutral-500 font-medium">Aggregated performance metric from 110,480 independent evaluations.</p>
+                <p class="text-xs text-neutral-500 font-medium">Aggregated metric from 110,480 independent profile lookups.</p>
             </div>
             <div class="flex flex-col items-center md:items-end">
                 <div class="flex text-amber-400 space-x-1 text-2xl"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                <span class="text-sm font-black text-theIckDark mt-1">4.9 / 5.0 Performance Score</span>
+                <span class="text-sm font-black text-theIckDark mt-1">4.9 / 5.0 Global Score</span>
             </div>
         </div>
     </section>
@@ -199,7 +205,7 @@
                         </div>
                         <div class="flex text-amber-400 space-x-0.5"><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span></div>
                     </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"The tracking accuracy exceeded expectations. The chronological feed successfully pinpointed exact system interaction timestamps within an hour."</p>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"The tracking map layout exceeded my expectations. The timestamp logs accurately reflected specific user structural updates in real-time."</p>
                 </div>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between">
@@ -214,7 +220,7 @@
                         </div>
                         <div class="flex text-amber-400 space-x-0.5"><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span></div>
                     </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Verified the absolute anonymity by performing a control test on an internal account. Zero alert flags or logs were generated."</p>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Confirmed complete background privacy by testing against an active corporate page. No alert triggers or session traces were found."</p>
                 </div>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between">
@@ -229,7 +235,7 @@
                         </div>
                         <div class="flex text-amber-400 space-x-0.5"><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span></div>
                     </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"An excellent source for precise chronological interaction logging. The data display functions correctly without authentication roadblocks."</p>
+                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Excellent interface for extracting direct chronological analytics. Everything processes instantly without typical API authentication walls."</p>
                 </div>
             </div>
         </div>
@@ -241,30 +247,30 @@
         <div class="space-y-3">
             <div class="bg-white rounded-xl p-4 shadow-sm cursor-pointer" onclick="toggleAccordion(this)">
                 <div class="flex justify-between items-center font-bold text-xs text-neutral-800">
-                    <span>Are lookup actions logged by the target account?</span>
+                    <span>Are lookup queries visible to destination accounts?</span>
                     <span class="faq-icon text-theIckHotPink font-black text-base">+</span>
                 </div>
-                <div class="faq-answer text-[11px] text-neutral-500 leading-relaxed">No. Queries are parsed externally through distinct server networks. The destination profile receives no notifications or record alerts.</div>
+                <div class="faq-answer text-[11px] text-neutral-500 leading-relaxed">No. Data mapping handles queries fully client-side and cloud-side over private data pathways. Targets receive zero notification records.</div>
             </div>
             <div class="bg-white rounded-xl p-4 shadow-sm cursor-pointer" onclick="toggleAccordion(this)">
                 <div class="flex justify-between items-center font-bold text-xs text-neutral-800">
-                    <span>Is account authentication or integration necessary?</span>
+                    <span>Is a direct Instagram profile integration required?</span>
                     <span class="faq-icon text-theIckHotPink font-black text-base">+</span>
                 </div>
-                <div class="faq-answer text-[11px] text-neutral-500 leading-relaxed">Authentication is never required. The framework processes metrics cleanly without accessing personal credentials or active session tracking tokens.</div>
+                <div class="faq-answer text-[11px] text-neutral-500 leading-relaxed">Never. The structural verification operates independently without asking for credentials, access tokens, or personal account sessions.</div>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="w-full bg-theIckDark text-white text-center py-12 px-6 rounded-t-[2.5rem] mt-auto">
-        <span class="text-xl font-black tracking-tight text-white">theick<span class="text-theIckPink">.io</span></span>
-        <p class="text-[10px] text-neutral-500 mt-4 max-w-xs mx-auto leading-relaxed">© 2026 The Ick. All legal rights reserved. This platform functions as an independent analytical structure and maintains no corporate relationship with Instagram or Meta Platforms Inc.</p>
+        <span class="text-xl font-black tracking-tight text-white">insta<span class="text-theIckPink">track</span></span>
+        <p class="text-[10px] text-neutral-500 mt-4 max-w-xs mx-auto leading-relaxed">© 2026 InstaTrack. All legal rights reserved. This platform operates as an independent tracking framework and maintains no commercial affiliation with Instagram or Meta Platforms Inc.</p>
     </footer>
 
     <!-- INTERACTIVE SCRIPTS -->
     <script>
-        const rotationWords = ["target username", "profile handle", "account handle"];
+        const rotationWords = ["instagram username", "profile handle", "target handle"];
         let currentWordIdx = 0;
         const targetPlaceholder = document.getElementById('animatedPlaceholder');
         const searchInput = document.getElementById('usernameInput');
