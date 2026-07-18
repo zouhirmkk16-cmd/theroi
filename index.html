@@ -21,7 +21,7 @@
                 }
             }
         }
-    </script>
+    </style>
     <style>
         body { background-color: #FCD3DE; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .placeholder-fade { transition: all 0.2s ease-in-out; }
@@ -29,14 +29,39 @@
         .animate-float { animation: floatEffect 3s ease-in-out infinite; }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; }
         .faq-answer.open { max-height: 200px; padding-top: 12px; }
+        
+        /* تمليس وتدوير التعليقات اللانهائي */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 40s linear infinite;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center antialiased">
 
-    <!-- NAVBAR -->
+    <div id="systemModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl border border-neutral-100 transform transition-all">
+            <div class="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+            </div>
+            <h3 class="text-sm font-black text-theIckDark mb-1">Service Temporarily Restricted</h3>
+            <p class="text-[11px] text-neutral-500 font-medium leading-relaxed mb-4">This module is locked due to high platform traffic. Complete your lookup priority on the dashboard first.</p>
+            <button onclick="closeModal()" class="w-full bg-theIckDark hover:bg-neutral-800 text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition">Dismiss</button>
+        </div>
+    </div>
+
     <header class="w-full max-w-5xl flex justify-between items-center px-6 py-5 z-50">
         <div class="flex items-center space-x-2.5 cursor-pointer">
-            <!-- INSTAGRAM OFFICIAL SVG LOGO -->
             <svg class="w-7 h-7 text-theIckDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -45,12 +70,11 @@
             <span class="text-xl font-black tracking-tight text-theIckDark">insta<span class="text-white">track</span></span>
         </div>
         <div class="flex items-center space-x-6">
-            <a href="#" class="text-sm font-bold text-theIckDark/80 hover:text-theIckDark transition">Pricing</a>
-            <button class="bg-theIckDark text-white font-bold px-5 py-2.5 rounded-xl text-xs tracking-wide transition hover:bg-neutral-800 shadow-sm">Log In</button>
+            <button onclick="openModal()" class="text-sm font-bold text-theIckDark/80 hover:text-theIckDark transition">Pricing</button>
+            <button onclick="openModal()" class="bg-theIckDark text-white font-bold px-5 py-2.5 rounded-xl text-xs tracking-wide transition hover:bg-neutral-800 shadow-sm">Log In</button>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
     <main class="w-full max-w-xl flex flex-col items-center text-center px-4 pt-6 pb-12">
         <div class="animate-float bg-theIckDark text-white text-[10px] font-extrabold tracking-widest uppercase px-4 py-2 rounded-full flex items-center space-x-2 shadow-md mb-6">
             <span class="flex h-2 w-2 relative">
@@ -60,12 +84,10 @@
             <span>Instagram Analytics Platform</span>
         </div>
 
-        <!-- NEW INSTAGRAM INSPIRED HEADLINE -->
         <h1 class="text-4xl md:text-5xl font-black text-theIckDark tracking-tight leading-[1.15] mb-6">
             Analyze Recent<br>Instagram Activity
         </h1>
 
-        <!-- INPUT BOX -->
         <div class="w-full bg-white/30 p-2 rounded-2xl border border-white/50 shadow-xl backdrop-blur-md">
             <div class="bg-white rounded-xl p-2 flex items-center shadow-inner relative justify-between border border-neutral-100 focus-within:ring-2 focus-within:ring-theIckHotPink/40 transition-all duration-300">
                 <div class="flex items-center flex-1 pl-3">
@@ -84,7 +106,6 @@
             <span>No Instagram password or authentication required.</span>
         </div>
 
-        <!-- TRUST METRICS -->
         <div class="mt-8 flex flex-col items-center">
             <div class="flex -space-x-2.5 overflow-hidden">
                 <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80">
@@ -101,7 +122,6 @@
         </div>
     </main>
 
-    <!-- SECTION: STEPS -->
     <section class="w-full max-w-4xl px-6 py-12 bg-white/20 border-t border-white/30 backdrop-blur-md rounded-3xl my-6">
         <div class="text-center mb-10">
             <span class="text-xs font-black tracking-widest text-theIckHotPink uppercase">— DATA RESOLUTION</span>
@@ -126,7 +146,6 @@
         </div>
     </section>
 
-    <!-- SECTION: LIVE ACTIVITY FEED -->
     <section class="w-full max-w-3xl px-6 py-8 my-4">
         <div class="bg-white rounded-2xl p-5 shadow-xl border border-white/60">
             <div class="flex items-center justify-between border-b border-neutral-100 pb-3 mb-4">
@@ -152,96 +171,18 @@
         </div>
     </section>
 
-    <!-- SECTION: PLATFORM CORE FEATURES -->
-    <section class="w-full max-w-4xl px-6 py-12">
-        <div class="text-center mb-10">
-            <span class="text-xs font-black tracking-widest text-theIckDark/60 uppercase">— INFRASTRUCTURE</span>
-            <h2 class="text-xl md:text-2xl font-black text-theIckDark mt-1">Enterprise Grade Instagram Proxies</h2>
+    <section class="w-full overflow-hidden py-10 bg-white/10 border-y border-white/20 backdrop-blur-sm my-4">
+        <div class="max-w-4xl mx-auto px-6 mb-6 text-center">
+            <span class="text-xs font-black tracking-widest text-theIckDark/60 uppercase">— REAL-TIME USER FEEDBACK</span>
+            <h2 class="text-xl font-black text-theIckDark mt-1">Global Verification Index</h2>
         </div>
-        <div class="grid md:grid-cols-2 gap-6 text-left">
-            <div class="bg-white/50 p-5 rounded-xl border border-white/40 flex items-start space-x-3">
-                <div class="w-5 h-5 mt-0.5 bg-theIckDark rounded-md flex items-center justify-center text-[10px] text-white font-bold">S</div>
-                <div>
-                    <h4 class="font-black text-xs text-theIckDark mb-1">Confidential Node Architecture</h4>
-                    <p class="text-[11px] text-neutral-600 font-medium">All structural database queries run strictly cloud-side, generating no logs on destination profiles.</p>
+        
+        <div class="w-full overflow-hidden relative">
+            <div class="marquee-track space-x-6 px-4" id="marqueeTrack">
                 </div>
-            </div>
-            <div class="bg-white/50 p-5 rounded-xl border border-white/40 flex items-start space-x-3">
-                <div class="w-5 h-5 mt-0.5 bg-theIckDark rounded-md flex items-center justify-center text-[10px] text-white font-bold">P</div>
-                <div>
-                    <h4 class="font-black text-xs text-theIckDark mb-1">Real-Time Sync Infrastructure</h4>
-                    <p class="text-[11px] text-neutral-600 font-medium">Data formatting algorithms update layout statistics immediately once data streams clear.</p>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- RATING COUNTER BLOCK -->
-    <section class="w-full max-w-4xl px-6 py-4 text-center">
-        <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/50 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="text-left">
-                <h3 class="text-lg font-black text-theIckDark">Verified Satisfaction Index</h3>
-                <p class="text-xs text-neutral-500 font-medium">Aggregated metric from 110,480 independent profile lookups.</p>
-            </div>
-            <div class="flex flex-col items-center md:items-end">
-                <div class="flex text-amber-400 space-x-1 text-2xl"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                <span class="text-sm font-black text-theIckDark mt-1">4.9 / 5.0 Global Score</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- REVIEWS -->
-    <section class="w-full max-w-4xl px-6 py-10">
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@j</div>
-                            <div>
-                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@jessica_m <span class="ml-1.5 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
-                                <p class="text-[9px] text-neutral-400">1 day ago</p>
-                            </div>
-                        </div>
-                        <div class="flex text-amber-400 space-x-0.5"><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span></div>
-                    </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"The tracking map layout exceeded my expectations. The timestamp logs accurately reflected specific user structural updates in real-time."</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@b</div>
-                            <div>
-                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@bradley_k <span class="ml-1.5 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
-                                <p class="text-[9px] text-neutral-400">3 days ago</p>
-                            </div>
-                        </div>
-                        <div class="flex text-amber-400 space-x-0.5"><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span></div>
-                    </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Confirmed complete background privacy by testing against an active corporate page. No alert triggers or session traces were found."</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl p-6 shadow-xl border border-white/60 flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-9 h-9 rounded-full bg-neutral-100 font-bold text-xs flex items-center justify-center text-neutral-700">@a</div>
-                            <div>
-                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@amanda.clark <span class="ml-1.5 text-[9px] bg-emerald-100 text-emerald-700 font-extrabold px-1 rounded">✓ Verified</span></h4>
-                                <p class="text-[9px] text-neutral-400">Just now</p>
-                            </div>
-                        </div>
-                        <div class="flex text-amber-400 space-x-0.5"><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span><span class="text-xs">★</span></div>
-                    </div>
-                    <p class="text-xs text-neutral-600 font-medium leading-relaxed">"Excellent interface for extracting direct chronological analytics. Everything processes instantly without typical API authentication walls."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQS ACCORDION -->
     <section class="w-full max-w-xl px-4 py-4 mb-16 text-left">
         <h2 class="text-xl font-black text-theIckDark mb-6 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
@@ -262,14 +203,16 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="w-full bg-theIckDark text-white text-center py-12 px-6 rounded-t-[2.5rem] mt-auto">
         <span class="text-xl font-black tracking-tight text-white">insta<span class="text-theIckPink">track</span></span>
         <p class="text-[10px] text-neutral-500 mt-4 max-w-xs mx-auto leading-relaxed">© 2026 InstaTrack. All legal rights reserved. This platform operates as an independent tracking framework and maintains no commercial affiliation with Instagram or Meta Platforms Inc.</p>
     </footer>
 
-    <!-- INTERACTIVE SCRIPTS -->
     <script>
+        // Modal Control
+        function openModal() { document.getElementById('systemModal').classList.remove('hidden'); }
+        function closeModal() { document.getElementById('systemModal').classList.add('hidden'); }
+
         const rotationWords = ["instagram username", "profile handle", "target handle"];
         let currentWordIdx = 0;
         const targetPlaceholder = document.getElementById('animatedPlaceholder');
@@ -321,6 +264,86 @@
             }
             alert("Analysis starting for @" + usernameValue + "... Link your gateway/locker here!");
         }
+
+        // مصفوفة ضخمة تضم 50 تعليق احترافي ومتنوع لربح الثقة
+        const rawReviews = [
+            {user: "alex_travels", text: "Terrific tool, accurate time metrics.", time: "2m ago"},
+            {user: "emily.rose", text: "Completely anonymous as advertised. Recommended.", time: "5m ago"},
+            {user: "brian_k", text: "Fast database resolution. Works clean.", time: "12m ago"},
+            {user: "sarah_m", text: "The chronological logs are flawless.", time: "21m ago"},
+            {user: "james_d", text: "Saved me so much verification hassle.", time: "30m ago"},
+            {user: "clara.clark", text: "Unbelievable speed. Best tracker out there.", time: "45m ago"},
+            {user: "david_b", text: "Tested on my second page, zero logs left.", time: "1h ago"},
+            {user: "jess_v", text: "Extremely professional infrastructure.", time: "1h ago"},
+            {user: "michael22", text: "Highly detailed tracking parameters.", time: "2h ago"},
+            {user: "sophie_t", text: "Clean dashboard without authentication.", time: "3h ago"},
+            {user: "rachel_g", text: "100% stable routing. Amazing updates.", time: "4h ago"},
+            {user: "daniel_s", text: "Perfect for checking recent parameters.", time: "5h ago"},
+            {user: "emma_w", text: "The response maps generated perfectly.", time: "6h ago"},
+            {user: "matthew_p", text: "Exactly what enterprise analytics need.", time: "7h ago"},
+            {user: "olivia_m", text: "No roadblocks or credentials requested.", time: "8h ago"},
+            {user: "lucas_j", text: "Secure packet routing verified cleanly.", time: "9h ago"},
+            {user: "mia_h", text: "Incredible real-time sync structure.", time: "10h ago"},
+            {user: "ethan_c", text: "The data execution holds perfectly.", time: "11h ago"},
+            {user: "ava_d", text: "Smooth chronological interaction layout.", time: "12h ago"},
+            {user: "liam_t", text: "No notification triggers occurred on targets.", time: "13h ago"},
+            {user: "chloe_b", text: "Impressed by the network speed map.", time: "14h ago"},
+            {user: "will_m", text: "Great analytical monitoring dashboards.", time: "15h ago"},
+            {user: "grace_p", text: "Clean records, zero profile roadblocks.", time: "16h ago"},
+            {user: "ryan_f", text: "Top-tier database pipeline check.", time: "17h ago"},
+            {user: "zoe_r", text: "Everything processes smoothly instantly.", time: "18h ago"},
+            {user: "nathan_s", text: "Excellent privacy protocol safeguards.", time: "19h ago"},
+            {user: "lily_w", text: "Super reliable analytical data maps.", time: "20h ago"},
+            {user: "jack_o", text: "Highly accurate timestamps, thanks.", time: "21h ago"},
+            {user: "natalie_q", text: "Clean background tracking map.", time: "22h ago"},
+            {user: "aaron_z", text: "Enterprise proxies perform beautifully.", time: "23h ago"},
+            {user: "hannah_x", text: "No personal accounts required, great.", time: "1d ago"},
+            {user: "luke_y", text: "The recent activity index updates fast.", time: "1d ago"},
+            {user: "mia_n", text: "Completely private pipeline checks.", time: "1d ago"},
+            {user: "owen_u", text: "Great user dashboard formatting logs.", time: "2d ago"},
+            {user: "victoria_i", text: "Perfect background network metrics.", time: "2d ago"},
+            {user: "samuel_o", text: "Structural extraction works every time.", time: "2d ago"},
+            {user: "bella_p", text: "Clean interaction analytics feed.", time: "3d ago"},
+            {user: "adam_a", text: "Highly effective analytical server.", time: "3d ago"},
+            {user: "isaac_l", text: "Safe lookups with zero trace signatures.", time: "3d ago"},
+            {user: "megan_k", text: "The sorted sequence fields work great.", time: "4d ago"},
+            {user: "leo_j", text: "Very consistent server execution response.", time: "4d ago"},
+            {user: "ruby_h", text: "Smooth architecture interface logging.", time: "4d ago"},
+            {user: "oliver_f", text: "The cloud parsing handles perfectly.", time: "5d ago"},
+            {user: "eva_g", text: "Top tier open parameter tracking map.", time: "5d ago"},
+            {user: "miles_p", text: "Very secure node layout options.", time: "5d ago"},
+            {user: "julia_c", text: "Excellent layout execution workflow.", time: "6d ago"},
+            {user: "ian_v", text: "Completely seamless proxy routing.", time: "6d ago"},
+            {user: "laura_b", text: "Highly structural database updates.", time: "6d ago"},
+            {user: "connor_m", text: "Perfect anonymous platform metrics.", time: "7d ago"},
+            {user: "ashley_t", text: "Extremely detailed chronological tracking.", time: "7d ago"}
+        ];
+
+        const track = document.getElementById('marqueeTrack');
+        
+        // بناء التعليقات ومضاعفتها لإنشاء حركة دائرية لانهائية بلا نهاية
+        function buildReviews(list) {
+            let html = '';
+            list.forEach(r => {
+                html += `
+                <div class="bg-white rounded-2xl p-5 shadow-md border border-white/60 flex flex-col justify-between w-64 shrink-0 text-left">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <h4 class="text-xs font-black text-neutral-900 flex items-center">@${r.user} <span class="ml-1 text-[8px] bg-emerald-50 text-emerald-600 font-extrabold px-1 rounded">✓</span></h4>
+                                <p class="text-[9px] text-neutral-400">${r.time}</p>
+                            </div>
+                            <div class="flex text-amber-400 space-x-0.5"><span class="text-[10px]">★</span><span class="text-[10px]">★</span><span class="text-[10px]">★</span><span class="text-[10px]">★</span><span class="text-[10px]">★</span></div>
+                        </div>
+                        <p class="text-[11px] text-neutral-600 font-medium leading-relaxed">"${r.text}"</p>
+                    </div>
+                </div>`;
+            });
+            return html;
+        }
+
+        // مضاعفة المصفوفة باش تعطي الدوران اللانهائي (Infinite loop effect)
+        track.innerHTML = buildReviews(rawReviews) + buildReviews(rawReviews);
     </script>
 </body>
 </html>
