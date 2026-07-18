@@ -3,162 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ick - Tracker Clone</title>
-    <!-- Tailwind CSS for styling -->
+    <title>The Ick Clone - Full Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background-color: #fce7f3; /* Light pink background like the original */
-        }
+        body { background-color: #FFF0F5; }
+        .gradient-bg { background: linear-gradient(180deg, #FFE4E1 0%, #FFF0F5 100%); }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4 font-sans text-gray-800">
+<body class="font-sans text-gray-800 m-0 p-0 antialiased">
 
-    <!-- STEP 1: Search Form -->
-    <div id="search-step" class="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl text-center space-y-6">
-        <div class="flex items-center justify-center space-x-2">
-            <span class="text-3xl">🤢</span>
-            <h1 class="text-2xl font-black">The Ick<span class="text-pink-500">.io</span></h1>
+    <!-- HEADER -->
+    <header class="flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center space-x-2">
+            <span class="text-2xl">🤢</span>
+            <span class="font-black text-xl tracking-tight">The Ick<span class="text-pink-500">.io</span></span>
         </div>
-        <p class="text-xl font-bold text-gray-700">Track their Recent Follows & Followers</p>
-        
-        <div class="space-y-3">
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">@</span>
-                <input id="username-input" type="text" placeholder="your partner" class="w-full pl-8 pr-4 py-3 border border-pink-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-400 text-lg">
-            </div>
-            <button onclick="startAnalysis()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 shadow-md">
-                Search Now
-            </button>
-        </div>
-        <p class="text-xs text-green-600 font-semibold">✓ Try it now. No Instagram login required.</p>
-    </div>
+        <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold px-5 py-2 rounded-full text-sm transition">Login</button>
+    </header>
 
-    <!-- STEP 2: Loading & Progress (Hidden by default) -->
-    <div id="loading-step" class="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl text-center space-y-6 hidden">
-        <h2 class="text-2xl font-black text-gray-800">Analyzing Follows</h2>
-        <p id="target-username" class="text-gray-500 font-semibold text-lg">@username</p>
-        
-        <!-- Profile Placeholder -->
-        <div class="w-28 h-28 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-full mx-auto p-1 shadow-lg">
-            <div class="w-full h-full bg-gray-200 rounded-full flex items-center justify-center text-3xl">👤</div>
-        </div>
+    <!-- MAIN APP CONTAINER (Handles Views: Home -> Loading -> Paywall) -->
+    <main class="max-w-md mx-auto px-4 pt-8 pb-24">
 
-        <!-- Progress Bar -->
-        <div class="space-y-1">
-            <div class="flex justify-between text-sm font-bold text-gray-600">
-                <span>Progress</span>
-                <span id="progress-text">0%</span>
+        <!-- ==================== VIEW 1: HERO & SEARCH FORM ==================== -->
+        <div id="view-home" class="space-y-8">
+            <div class="text-center space-y-3">
+                <span class="bg-pink-100 text-pink-600 text-xs font-black px-4 py-1.5 rounded-full inline-block shadow-sm">🔥 #1 Trending App on TikTok</span>
+                <h1 class="text-3xl font-black tracking-tight text-gray-900 leading-tight">Track Their Recent Follows & Followers 🤔</h1>
             </div>
-            <div class="w-full bg-gray-100 h-4 rounded-full overflow-hidden border border-gray-200">
-                <div id="progress-bar" class="bg-pink-500 h-full transition-all duration-300" style="width: 0%;"></div>
-            </div>
-        </div>
 
-        <!-- Dynamic Status Messages -->
-        <div class="space-y-3 text-left">
-            <div id="status-1" class="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                <span class="text-xl">🌐</span>
-                <p class="text-sm font-medium text-gray-600">Connecting to Instagram servers...</p>
-            </div>
-            <div id="status-2" class="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl border border-gray-100 opacity-40">
-                <span class="text-xl">🔍</span>
-                <p class="text-sm font-medium text-gray-600">Searching user profile...</p>
-            </div>
-            <div id="status-3" class="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl border border-gray-100 opacity-40">
-                <span class="text-xl">🔒</span>
-                <p class="text-sm font-medium text-gray-600">Fetching profile data anonymously...</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- STEP 3: Paywall / Results (Hidden by default) -->
-    <div id="paywall-step" class="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl text-center space-y-6 hidden">
-        <h2 class="text-2xl font-black text-gray-800">Unlock The Ick</h2>
-        
-        <div class="space-y-3 text-left bg-pink-50 p-4 rounded-2xl border border-pink-100">
-            <div class="flex items-start space-x-2">
-                <span class="text-green-500">✓</span>
-                <p class="text-sm font-semibold text-gray-700">100% private & secure (No login required)</p>
-            </div>
-            <div class="flex items-start space-x-2">
-                <span class="text-green-500">✓</span>
-                <p class="text-sm font-semibold text-gray-700">View recent follows f l-blasa sorted by date</p>
-            </div>
-            <div class="flex items-start space-x-2">
-                <span class="text-green-500">✓</span>
-                <p class="text-sm font-semibold text-gray-700">Get notified of every single change</p>
-            </div>
-        </div>
-
-        <!-- Pricing Card -->
-        <div class="border-2 border-pink-500 rounded-2xl p-4 relative bg-pink-50/50">
-            <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-pink-500 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</span>
-            <div class="flex justify-between items-center mt-2">
-                <div class="text-left">
-                    <p class="font-black text-xl text-gray-800">Yearly</p>
-                    <p class="text-xs text-gray-500">12mo - $9.99</p>
+            <!-- Main Input Card -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl border border-pink-100/50 space-y-4">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 font-medium">@</span>
+                    <input id="username-input-top" type="text" placeholder="your partner" class="w-full pl-9 pr-32 py-4 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-400 text-base font-medium bg-gray-50/50">
+                    <button onclick="startAnalysis('username-input-top')" class="absolute right-2 top-2 bottom-2 bg-pink-500 hover:bg-pink-600 text-white font-bold px-5 rounded-full text-sm transition shadow-sm">Search Now</button>
                 </div>
-                <div class="text-right">
-                    <p class="font-black text-2xl text-pink-500">$0.19<span class="text-sm font-normal text-gray-500">/wk</span></p>
-                    <p class="text-xs text-green-600 font-bold">Save 96%</p>
+                <p class="text-center text-xs text-green-600 font-bold flex items-center justify-center gap-1">✓ Try it now. No Instagram login required.</p>
+                
+                <!-- Social Proof Stats -->
+                <div class="pt-4 border-t border-gray-100 flex justify-between items-center text-xs text-gray-500 font-medium px-2">
+                    <div class="flex items-center gap-1">👥 <span class="font-bold text-gray-700">1M+</span> accounts searched</div>
+                    <div class="flex items-center gap-1 text-green-600"><span class="w-2 h-2 rounded-full bg-green-500 inline-block animate-pulse"></span> 187 searching anonymously</div>
                 </div>
             </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-4 text-center">
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="text-2xl font-black text-gray-900">1M+</div>
+                    <div class="text-xs text-gray-500 font-semibold mt-0.5">Accounts Analyzed</div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="text-2xl font-black text-gray-900">110K+</div>
+                    <div class="text-xs text-gray-500 font-semibold mt-0.5">App Store Reviews</div>
+                </div>
+            </div>
+
+            <!-- HOW IT WORKS SECTION -->
+            <div class="space-y-6 pt-6">
+                <div class="text-center">
+                    <span class="text-xs font-bold uppercase tracking-widest text-pink-500">— HOW IT WORKS —</span>
+                    <h2 class="text-xl font-black mt-1">Simple process, powerful results</h2>
+                </div>
+
+                <!-- Step 1 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-3">
+                    <span class="text-xs font-black uppercase text-pink-500 tracking-wider">Step 1</span>
+                    <h3 class="font-black text-lg text-gray-900">Enter a username</h3>
+                    <p class="text-sm text-gray-600">Just type their public Instagram handle. No password or login needed.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-3">
+                    <span class="text-xs font-black uppercase text-pink-500 tracking-wider">Step 2</span>
+                    <h3 class="font-black text-lg text-gray-900">See recent follows</h3>
+                    <p class="text-sm text-gray-600">View who they recently followed, sorted chronologically with timestamps.</p>
+                </div>
+            </div>
+
+            <!-- VIRAL ON TIKTOK SECTION -->
+            <div class="space-y-4 pt-6">
+                <div class="text-center">
+                    <span class="text-xs font-bold uppercase tracking-widest text-pink-500">— TRENDING —</span>
+                    <h2 class="text-xl font-black mt-1">Viral on TikTok</h2>
+                </div>
+                <!-- Fake TikTok Grid Placeholders -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gray-300 h-48 rounded-xl relative overflow-hidden bg-cover bg-center flex items-end p-2" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400');">
+                        <span class="bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded font-bold">▶ 7.3M</span>
+                    </div>
+                    <div class="bg-gray-300 h-48 rounded-xl relative overflow-hidden bg-cover bg-center flex items-end p-2" style="background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400');">
+                        <span class="bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded font-bold">▶ 3M</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPARISON TABLE -->
+            <div class="space-y-4 pt-6">
+                <h2 class="text-xl font-black text-center">Why 1M+ users choose The Ick</h2>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden text-sm">
+                    <div class="grid grid-cols-3 bg-gray-50 border-b border-gray-100 p-3 font-bold text-xs text-gray-500 uppercase">
+                        <div>Feature</div>
+                        <div class="text-pink-500 text-center">The Ick</div>
+                        <div class="text-right">Others</div>
+                    </div>
+                    <div class="grid grid-cols-3 p-3 border-b border-gray-50 items-center">
+                        <div class="font-semibold text-gray-700">Anonymous</div>
+                        <div class="text-center text-green-600 font-bold bg-green-50 py-1 rounded-lg">Yes, Always</div>
+                        <div class="text-right text-red-500 font-bold">No</div>
+                    </div>
+                    <div class="grid grid-cols-3 p-3 items-center">
+                        <div class="font-semibold text-gray-700">IG Login</div>
+                        <div class="text-center text-green-600 font-bold bg-green-50 py-1 rounded-lg">Not Required</div>
+                        <div class="text-right text-red-500 font-bold">Required</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REVIEWS SECTION -->
+            <div class="space-y-4 pt-6">
+                <h2 class="text-xl font-black text-center">Trusted by thousands ⭐ 4.6/5</h2>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-2">
+                    <div class="flex text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                    <p class="font-bold text-gray-900 text-sm">"Clean dashboard. Works completely anonymously as promised."</p>
+                    <p class="text-xs text-gray-400 font-medium">— Marcus J. <span class="text-pink-500 font-bold">PRO</span></p>
+                </div>
+            </div>
+
+            <!-- BOTTOM RE-ENGAGEMENT SEARCH -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl border border-pink-100/50 space-y-4 pt-6">
+                <h2 class="text-xl font-black text-center">Ready to find out?</h2>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 font-medium">@</span>
+                    <input id="username-input-bottom" type="text" placeholder="your partner" class="w-full pl-9 pr-32 py-4 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-400 text-base font-medium bg-gray-50/50">
+                    <button onclick="startAnalysis('username-input-bottom')" class="absolute right-2 top-2 bottom-2 bg-pink-500 hover:bg-pink-600 text-white font-bold px-5 rounded-full text-sm transition shadow-sm">Search</button>
+                </div>
+            </div>
         </div>
 
-        <button class="w-full bg-gray-900 hover:bg-black text-white font-black py-4 px-6 rounded-full text-lg transition duration-300 shadow-lg">
-            Start Tracking Now
-        </button>
-        <p class="text-xs text-gray-400">🛡 Cancel anytime, no commitments.</p>
-    </div>
 
-    <!-- JavaScript Logic -->
+        <!-- ==================== VIEW 2: LOADING / ANALYSIS (Hidden) ==================== -->
+        <div id="view-loading" class="space-y-6 text-center hidden pt-12">
+            <h2 class="text-2xl font-black text-gray-900">Analyzing Follows</h2>
+            <p id="target-username" class="text-pink-600 font-bold text-lg">@username</p>
+            
+            <div class="w-28 h-28 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-full mx-auto p-1 shadow-xl animate-pulse">
+                <div class="w-full h-full bg-gray-100 rounded-full flex items-center justify-center text-4xl">👤</div>
+            </div>
+
+            <div class="space-y-2 max-w-xs mx-auto">
+                <div class="flex justify-between text-xs font-bold text-gray-600">
+                    <span>Progress</span>
+                    <span id="progress-text">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden p-0.5 border border-gray-300/30">
+                    <div id="progress-bar" class="bg-pink-500 h-full rounded-full transition-all duration-100" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Dynamic Steps -->
+            <div class="space-y-3 text-left max-w-sm mx-auto pt-4">
+                <div id="status-1" class="flex items-center space-x-3 p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm transition">
+                    <span class="text-lg">📡</span>
+                    <p class="text-xs font-bold text-gray-600">Connecting to Instagram servers...</p>
+                </div>
+                <div id="status-2" class="flex items-center space-x-3 p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm opacity-40 transition">
+                    <span class="text-lg">🔍</span>
+                    <p class="text-xs font-bold text-gray-600">Searching user profile...</p>
+                </div>
+                <div id="status-3" class="flex items-center space-x-3 p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm opacity-40 transition">
+                    <span class="text-lg">🕵️‍♂️</span>
+                    <p class="text-xs font-bold text-gray-600">Fetching profile data anonymously...</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ==================== VIEW 3: PAYWALL / CONGRATS (Hidden) ==================== -->
+        <div id="view-paywall" class="space-y-6 hidden pt-4 text-center">
+            <h2 class="text-2xl font-black text-gray-900">What do you think? 🫣</h2>
+            <p class="text-sm font-bold text-gray-500 -mt-3"><span id="paywall-user" class="text-gray-800 font-extrabold">@user</span> recently followed:</p>
+
+            <!-- Blur Result Preview Teaser Box -->
+            <div class="space-y-3">
+                <div class="bg-white p-4 rounded-2xl shadow-md border border-pink-100 flex justify-between items-center text-left">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl">👩</span>
+                        <div>
+                            <p class="font-black text-sm text-gray-900">1 girl</p>
+                            <p class="text-[11px] text-gray-400 font-medium">Recently followed</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-200 blur-sm"></div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl shadow-md border border-pink-100 flex justify-between items-center text-left">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl">👨</span>
+                        <div>
+                            <p class="font-black text-sm text-gray-900">14 guys</p>
+                            <p class="text-[11px] text-gray-400 font-medium">Recently followed</p>
+                        </div>
+                    </div>
+                    <div class="flex -space-x-2 blur-[2px]">
+                        <div class="w-6 h-6 rounded-full bg-gray-300 border-2 border-white"></div>
+                        <div class="w-6 h-6 rounded-full bg-gray-400 border-2 border-white"></div>
+                        <span class="bg-pink-500 text-white text-[9px] font-bold w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">+11</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features and Unlock -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl border border-pink-100/50 space-y-5 text-left">
+                <h3 class="font-black text-lg text-center text-gray-900">Unlock The Ick</h3>
+                
+                <div class="space-y-2.5 text-xs font-bold text-gray-600">
+                    <p class="flex items-center gap-2">✨ <span class="text-gray-800">100% Private & Secure</span> (No login required)</p>
+                    <p class="flex items-center gap-2">📅 <span class="text-gray-800">View recent follows in order</span> (Chronological)</p>
+                    <p class="flex items-center gap-2">🔔 <span class="text-gray-800">Get notified of every change</span> (Instant alerts)</p>
+                </div>
+
+                <!-- Pricing Card -->
+                <div class="border-2 border-pink-500 rounded-2xl p-4 relative bg-pink-50/40">
+                    <span class="absolute -top-2.5 left-6 bg-pink-500 text-white text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase">Most Popular</span>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-black text-base text-gray-900">Yearly</p>
+                            <p class="text-[10px] text-gray-400">12mo - $9.99</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-black text-xl text-pink-500">$0.19<span class="text-xs font-normal text-gray-400">/wk</span></p>
+                            <p class="text-[10px] text-green-600 font-bold">Save 96%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="w-full bg-gray-950 hover:bg-black text-white font-black py-4 px-6 rounded-full text-base transition shadow-md flex items-center justify-center gap-2">
+                    🔒 Start Tracking Now
+                </button>
+                <p class="text-center text-[10px] text-gray-400 font-medium">✓ Cancel anytime, no commitments.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-950 text-gray-500 text-xs py-12 text-center border-t border-gray-900 space-y-4">
+        <p class="font-bold text-gray-400">The Ick.io</p>
+        <div class="flex justify-center space-x-4 font-semibold">
+            <a href="#" class="hover:text-white">Features</a>
+            <a href="#" class="hover:text-white">FAQ</a>
+            <a href="#" class="hover:text-white">Privacy</a>
+        </div>
+        <p class="text-[10px] px-6">© 2026 The Ick. All rights reserved. This service is not affiliated with Instagram.</p>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPT -->
     <script>
-        function startAnalysis() {
-            const username = document.getElementById('username-input').value.trim();
+        function startAnalysis(inputId) {
+            const username = document.getElementById(inputId).value.trim();
             if (!username) {
-                alert('Please enter a username first!');
+                alert('Please enter an Instagram username!');
                 return;
             }
 
-            // Switch to Loading Step
-            document.getElementById('search-step').classList.add('hidden');
-            document.getElementById('loading-step').classList.remove('hidden');
+            // Move to Loading Screen
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-loading').classList.remove('hidden');
             document.getElementById('target-username').innerText = '@' + username;
+            document.getElementById('paywall-user').innerText = '@' + username;
 
             let progress = 0;
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
             
-            const status1 = document.getElementById('status-1');
-            const status2 = document.getElementById('status-2');
-            const status3 = document.getElementById('status-3');
+            const s1 = document.getElementById('status-1');
+            const s2 = document.getElementById('status-2');
+            const s3 = document.getElementById('status-3');
 
-            // Simulating progress steps
-            const interval = setInterval(() => {
+            const timer = setInterval(() => {
                 progress += 1;
                 progressBar.style.width = progress + '%';
                 progressText.innerText = progress + '%';
 
-                // Light up status bars based on progress
                 if (progress >= 35) {
-                    status1.classList.add('bg-green-50', 'border-green-200');
-                    status2.classList.remove('opacity-40');
+                    s1.classList.add('bg-green-50', 'border-green-200');
+                    s2.classList.remove('opacity-40');
                 }
                 if (progress >= 70) {
-                    status2.classList.add('bg-green-50', 'border-green-200');
-                    status3.classList.remove('opacity-40');
+                    s2.classList.add('bg-green-50', 'border-green-200');
+                    s3.classList.remove('opacity-40');
                 }
 
                 if (progress >= 100) {
-                    clearInterval(interval);
-                    // Show final paywall step
+                    clearInterval(timer);
                     setTimeout(() => {
-                        document.getElementById('loading-step').classList.add('hidden');
-                        document.getElementById('paywall-step').classList.remove('hidden');
-                    }, 500);
+                        // Switch to Paywall
+                        document.getElementById('view-loading').classList.add('hidden');
+                        document.getElementById('view-paywall').classList.remove('hidden');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 400);
                 }
-            }, 50); // Speed of loading (50ms per 1%)
+            }, 40); // 40ms * 100 = ~4 seconds loading
         }
     </script>
 </body>
